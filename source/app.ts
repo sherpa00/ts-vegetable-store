@@ -5,10 +5,7 @@ import passport from "./configs/passport.config";
 import storeRoutes from "./routes/store.route";
 import signupRoutes from "./routes/signup.route";
 import loginRoutes from "./routes/login.route";
-<<<<<<< HEAD
-=======
-import { rmSync } from "fs";
->>>>>>> 9410fa899213ff629ca0fc319c61db9cc6efb137
+
 
 // ___________________ APPLICATION __________________
 const app : Express = express();
