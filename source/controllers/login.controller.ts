@@ -17,13 +17,25 @@ const SECRET : string = process.env.SECRET!;
 
 const Login = async (req: Request,res: Response,next: NextFunction) => {
     try {
+
         // find the user with the help of cliet email
         let userByEmail = await UserModel.findOne({email: req.body.email});
 
         if (!userByEmail) {
             // if user's email is not found then compare the password hash
-            res.status(400).send("User is not reigisterd yet");
+            console.log("Email not found");
+            res.render("login",{
+                errors: {
+                    email: {
+                        msg: "Email or Password error."
+                    },
+                    password: {
+                        msg: "Email or Password error."
+                    }
+                }
+            });
             next();
+            return;
         }
 
         // comapare the user's password
@@ -35,12 +47,39 @@ const Login = async (req: Request,res: Response,next: NextFunction) => {
             // here sign the jwt
             let signed =  jwt.sign({sub: userByEmail!._id},privateKey,{expiresIn: "1h",algorithm: "RS256"});
 
-            res.status(200).json({
-                token: signed
-            });
+            // verify if the user is admin or not
+            if (userByEmail!.isAdmin) {
+                return res.cookie("token",signed,{
+                    httpOnly: true,
+                    maxAge: 1200000,
+                    secure: false
+                })
+                .redirect("/admin");
+            }
+
+            // set the token to res.cookie
+            return res.cookie("token",signed,{
+                httpOnly: true,
+                maxAge: 1200000,
+                secure: false // only set true when https is used
+            })
+            .redirect("/protected");
+
+            res.redirect("store");
         } else {
             // if password not match 
-            res.status(400).send("Password is incorrect");
+            res.render("login",{
+                errors: {
+                    password: {
+                        msg: "Email or Password error."
+                    },
+                    email: {
+                        msg: "Email or Password error."
+                    }
+                }
+            });
+            next();
+            return;
         }
 
 

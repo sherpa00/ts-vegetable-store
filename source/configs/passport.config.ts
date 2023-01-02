@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+
 import { Request } from "express";
 import { Strategy,ExtractJwt } from "passport-jwt";
 import passport from "passport";
@@ -10,14 +10,20 @@ import UserModel from "../models/user.model";
 const publicKey = fs.readFileSync(path.join(__dirname,"./keys/public.key")).toString();
 
 
-dotenv.config();
+// cookie extractor function
+const cookieExtractor = (req: Request) => {
+    let token = null;
+    if (req && req.cookies) {
+        token = req.cookies['token'];
+    }
+    return token;
+}
 
-const SECRET : string = process.env.SECRET!;
 
 // _____________ PASSPORT CONFIG ____________
 passport.use(
     new Strategy({
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest: cookieExtractor,
         secretOrKey: publicKey,
         passReqToCallback: true, // when true we can user req.user among authorized routes
         algorithms: ["RS256"]

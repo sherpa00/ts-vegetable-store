@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router,Request,Response,NextFunction } from "express";
 import { CreateStoreProduct,DeleteAllStoreProduct,DeleteStoreProduct,GetAllStoreProduct, GetStoreProduct, UpdateStoreProduct } from "../controllers/store.controller";
 
 // __________________ STORE ROUTES _______________
