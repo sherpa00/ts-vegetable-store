@@ -4,11 +4,87 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin.css" />
     <title>Admin Panel</title>
 </head>
 <body>
-    <h2>
+    <h1 id="heading">
         Welcome Back! Admin
-    </h2>
+    </h1>
+
+    <p id="heading2">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut voluptatem delectus voluptas atque sint quod nostrum iusto inventore doloribus totam reprehenderit porro culpa a rerum ex eaque, et quidem quo.
+    </p>
+        
+    <form id="add_product" method="post" action="/store">
+        <h2>
+            Add Products Here
+        </h2>
+  
+        <label for="title">
+            Vegetable Title:
+        </label>
+        <input type="text" id="title" name="title" required placeholder="Enter vegetable's name.." />
+        
+        <label for="description">
+            Vegetable Description:
+        </label>
+        <textarea type="text" id="description" name="description" required placeholder="Enter vegetable's Description.."></textarea>
+        
+        <label for="price">
+            Vegetable Price:
+        </label>
+        <input type="number" id="price" name="price" required placeholder="Enter vegetable's price.." />
+        
+        <fieldset>
+            <legend>Vegetable Category</legend>
+            
+            <div>
+                <label for="green_vegetable">
+                    green vegetable
+                </label>
+                <input type="checkbox" id="green_vegetable" name="green_vegetable" value="green vegetable">
+            </div>
+            <div>
+                <label for="vegetable">
+                    vegetable
+                </label>
+                <input type="checkbox" id="vegetable" name="vegetable" value="vegetable">
+            </div>
+            <div>
+                <label for="fruit">
+                    fruit
+                </label>
+                <input type="checkbox" id="fruit" name="fruit" value="fruit">
+            </div>
+            <div>
+                <label for="winter">
+                    winter
+                </label>
+                <input type="checkbox" id="winter" name="winter" value="winter">
+            </div>
+            <div>
+                <label for="summer">
+                    summer
+                </label>
+                <input type="checkbox" id="summer" name="summer" value="summer">
+            </div>
+        </fieldset>
+
+        <label for="image">
+            Vegetable Image url:
+        </label>
+        <input type="text" id="image" name="image" required/>
+
+        <label for="max_quantity">
+            Vegetable Max Quantity:
+        </label>
+        <input type="number" id="max_quantity" name="max_quantity" />
+
+        <button type="submit">
+            Add Product
+        </button>
+    </form>
+    
 </body>
 </html>

@@ -9,6 +9,7 @@ import signupRoutes from "./routes/signup.route";
 import loginRoutes from "./routes/login.route";
 import logoutRoutes from "./routes/logout.route";
 import adminRoutes from "./routes/admin.route";
+import isLoggedIn from "./middlewares/isLoggedIn.middleware";
 
 
 // ___________________ APPLICATION __________________
@@ -38,9 +39,10 @@ app.get("/protected",passport.authenticate("jwt",{session: false}),(req: Request
     });
 });
 
+
 app.use("/store",passport.authenticate("jwt",{session: false}),storeRoutes);
-app.use("/signup",signupRoutes);
-app.use("/login",loginRoutes);
+app.use("/signup",isLoggedIn,signupRoutes);
+app.use("/login",isLoggedIn,loginRoutes);
 app.use("/logout",passport.authenticate("jwt",{session: false}),logoutRoutes);
 app.use("/admin",passport.authenticate("jwt",{session: false}),adminRoutes);
 

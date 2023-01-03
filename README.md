@@ -17,4 +17,5 @@
   <li>Typescript</li>
   <li>EJS template</li>
   <li>JWT and passport.js</li>
+  <li>Morgan Log Library</li>
 </ul>

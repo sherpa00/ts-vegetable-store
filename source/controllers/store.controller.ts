@@ -2,6 +2,16 @@
 import { Request,Response,NextFunction } from "express";
 import StoreModel from "../models/store.model";
 
+// type for req.body
+type ReqBody = {
+    title: string;
+    description: string;
+    price: number,
+    category: string[],
+    image: string,
+    max_quantity: number
+}
+
 // ___________________ STORE CONTROLLERS ___________________
 
 // CREATE a store product
@@ -9,20 +19,44 @@ const CreateStoreProduct = async (req: Request,res: Response,next: NextFunction)
     try {
         let productsCount = await StoreModel.find({});
 
-        let newStoreModel = new StoreModel({
+        // factorize the req.body to be saved
+        let reqBody : ReqBody = {
             title: req.body.title,
             description: req.body.description,
-            price: req.body.price,
-            category: req.body.category,
+            price: Number(req.body.price),
+            category: [],
             image: req.body.image,
-            max_quantity: req.body.max_quantity,
+            max_quantity: Number(req.body.max_quantity)
+        };
+
+        // finalize the category of products in an array
+        if (req.body.fruit) {
+            reqBody.category.push(req.body.fruit);
+        }
+        if (req.body.green_vegetable) {
+            reqBody.category.push(req.body.green_vegetable);
+        }
+        if (req.body.vegetable) {
+            reqBody.category.push(req.body.vegetable);
+        }
+        if (req.body.winter) {
+            reqBody.category.push(req.body.winter);
+        }
+        if (req.body.summer) {
+            reqBody.category.push(req.body.summer);
+        }
+
+        let newStoreModel = new StoreModel({
+            ...reqBody,
             // calculate the length and create id
             id: productsCount.length + 1
         });
 
-        let store = await newStoreModel.save();
+        await newStoreModel.save();
+
         console.log("Product is added");
-        res.status(200).json(store);
+        
+        res.redirect("/admin");
     } catch (err) {
         res.status(400).send("Error while creating store product...")
         throw new Error("Error while creating a store product ...");

@@ -1,5 +1,6 @@
-import { Router,Request,Response,NextFunction } from "express";
+import { Router } from "express";
 import { CreateStoreProduct,DeleteAllStoreProduct,DeleteStoreProduct,GetAllStoreProduct, GetStoreProduct, UpdateStoreProduct } from "../controllers/store.controller";
+import isAdmin from "../middlewares/isAdmin.middleware";
 
 // __________________ STORE ROUTES _______________
 const router = Router();
@@ -7,10 +8,10 @@ const router = Router();
 // routes
 router.get("/",GetAllStoreProduct);
 router.get("/:id",GetStoreProduct)
-router.post("/",CreateStoreProduct);
-router.patch("/:id",UpdateStoreProduct);
-router.delete("/",DeleteAllStoreProduct);
-router.delete("/:id",DeleteStoreProduct);
+router.post("/",isAdmin,CreateStoreProduct);
+router.patch("/:id",isAdmin,UpdateStoreProduct);
+router.delete("/",isAdmin,DeleteAllStoreProduct);
+router.delete("/:id",isAdmin,DeleteStoreProduct);
 
 
 export = router;

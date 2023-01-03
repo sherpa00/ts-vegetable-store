@@ -39,16 +39,16 @@ const Login = async (req: Request,res: Response,next: NextFunction) => {
         }
 
         // comapare the user's password
-        let isValid = compareSync(req.body.password,userByEmail!.hash);
+        let isValid = compareSync(req.body.password,userByEmail.hash);
 
 
         // if password is valid then sign the jwt
         if (isValid) {
             // here sign the jwt
-            let signed =  jwt.sign({sub: userByEmail!._id},privateKey,{expiresIn: "1h",algorithm: "RS256"});
+            let signed =  jwt.sign({sub: userByEmail._id},privateKey,{expiresIn: "1h",algorithm: "RS256"});
 
             // verify if the user is admin or not
-            if (userByEmail!.isAdmin) {
+            if (userByEmail.isAdmin) {
                 return res.cookie("token",signed,{
                     httpOnly: true,
                     maxAge: 1200000,
@@ -63,9 +63,8 @@ const Login = async (req: Request,res: Response,next: NextFunction) => {
                 maxAge: 1200000,
                 secure: false // only set true when https is used
             })
-            .redirect("/protected");
+            .redirect("/store"); // redirect after login 
 
-            res.redirect("store");
         } else {
             // if password not match 
             res.render("login",{
