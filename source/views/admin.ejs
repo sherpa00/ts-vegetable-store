@@ -16,7 +16,7 @@
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut voluptatem delectus voluptas atque sint quod nostrum iusto inventore doloribus totam reprehenderit porro culpa a rerum ex eaque, et quidem quo.
     </p>
         
-    <form id="add_product" method="post" action="/store">
+    <form id="add_product" method="post" action="/store" enctype="multipart/form-data">
         <h2>
             Add Products Here
         </h2>
@@ -72,9 +72,9 @@
         </fieldset>
 
         <label for="image">
-            Vegetable Image url:
+            Vegetable Image:
         </label>
-        <input type="text" id="image" name="image" required/>
+        <input type="file" id="image" name="image" required/>
 
         <label for="max_quantity">
             Vegetable Max Quantity:

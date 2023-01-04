@@ -8,9 +8,11 @@ type ReqBody = {
     description: string;
     price: number,
     category: string[],
-    image: string,
+    image: any,
     max_quantity: number
 }
+
+
 
 // ___________________ STORE CONTROLLERS ___________________
 
@@ -19,16 +21,23 @@ const CreateStoreProduct = async (req: Request,res: Response,next: NextFunction)
     try {
         let productsCount = await StoreModel.find({});
 
+        // if the post data does not consists of req.file image then redirect it to admin route
+        if (!req.file) {
+            res.redirect("/admin");
+            next();
+        };
+
         // factorize the req.body to be saved
         let reqBody : ReqBody = {
             title: req.body.title,
             description: req.body.description,
             price: Number(req.body.price),
             category: [],
-            image: req.body.image,
+            image: req.file,// add the req.file image
             max_quantity: Number(req.body.max_quantity)
         };
-
+        console.log(reqBody);
+        
         // finalize the category of products in an array
         if (req.body.fruit) {
             reqBody.category.push(req.body.fruit);
@@ -54,7 +63,7 @@ const CreateStoreProduct = async (req: Request,res: Response,next: NextFunction)
 
         await newStoreModel.save();
 
-        console.log("Product is added");
+        console.log("Product is added"); 
         
         res.redirect("/admin");
     } catch (err) {

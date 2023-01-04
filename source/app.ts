@@ -1,5 +1,5 @@
 
-import express, { Express,Request,Response } from "express";
+import express, { Express,NextFunction,Request,Response } from "express";
 import morgan from "morgan";
 import path from "path";
 import cookieParser from "cookie-parser";
@@ -28,22 +28,22 @@ app.set("views",path.join(__dirname,"views"))
 app.set("view engine","ejs");
 
 // __________________________ ROUTES _________________
-app.get("/",(req:Request,res: Response) => {
-    res.status(200).send("Success");
+// render home page
+app.get("/",isLoggedIn,(req:Request,res: Response) => {
+    res.render("home");
 });
 
-app.get("/protected",passport.authenticate("jwt",{session: false}),(req: Request,res: Response) => {
+app.get("/protected",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),(req: Request,res: Response,next: NextFunction) => {
     res.status(200).json({
-        success: true,
-        message: "You are authenticated and authorized"
-    });
-});
+        success: true
+    })
+})
 
 
-app.use("/store",passport.authenticate("jwt",{session: false}),storeRoutes);
+app.use("/store",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),storeRoutes);
 app.use("/signup",isLoggedIn,signupRoutes);
 app.use("/login",isLoggedIn,loginRoutes);
-app.use("/logout",passport.authenticate("jwt",{session: false}),logoutRoutes);
-app.use("/admin",passport.authenticate("jwt",{session: false}),adminRoutes);
+app.use("/logout",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),logoutRoutes);
+app.use("/admin",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),adminRoutes);
 
 export default app;
