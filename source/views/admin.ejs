@@ -15,6 +15,15 @@
     <p id="heading2">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut voluptatem delectus voluptas atque sint quod nostrum iusto inventore doloribus totam reprehenderit porro culpa a rerum ex eaque, et quidem quo.
     </p>
+
+    <div id="btn-group1">
+        <a href="#products-section">
+            Products Section
+        </a>
+        <a href="#users-section">
+            Users Section
+        </a>
+    </div>
         
     <form id="add_product" method="post" action="/store" enctype="multipart/form-data">
         <h2>
@@ -85,6 +94,44 @@
             Add Product
         </button>
     </form>
+
+    <div id="products-list">
+        
+        <% products.forEach((product) => { %>
+
+            <div class="product">
+                <img src="<%= product.image.path %>" alt="product images" />
+                <h2>
+                    <strong>Title :</strong> <%= product.title %>
+                </h2>
+                <p>
+                    <strong>Description :</strong> <%= product.description %>
+                </p>
+                <p>
+                    <strong>Price :</strong> Rs. <%= product.price %>
+                </p>
+                <p>
+                    <strong>Category :</strong> <%= product.category %>
+                </p>
+                <p>
+                    <strong>Max Quantity :</strong> <%= product.max_quantity %>
+                </p>
+                <div class="product-btns-group1">
+                    <form>
+                        <button type="submit" id="update_product">
+                            Update
+                        </button>
+                    </form>
+                    <form>
+                        <button type="submit" id="delete_product">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        <% }) %>
+         
+    </div>
     
 </body>
 </html>

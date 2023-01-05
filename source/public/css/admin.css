@@ -25,7 +25,31 @@ body {
     word-break: break-all;
 }
 
-form {
+#btn-group1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    margin-top: 20px;
+    gap: 20px
+}
+
+#btn-group1 a {
+    padding: 15px 25px;
+    border-radius: 10px;
+    background-color: orange;
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+
+#btn-group1 a:hover {
+    background-color: gray;
+}
+
+#add_product {
     width: 60%;
     background-color: whitesmoke;
     border-radius: 20px;
@@ -35,12 +59,12 @@ form {
     flex-direction: column;
 }
 
-form h2 {
+#add_product h2 {
     font-size: 24px;
     text-align: center;
 }
 
-form label {
+#add_product label {
     font-size: 20px;
     text-align: left;
     margin-top: 25px;
@@ -50,7 +74,7 @@ form label {
 
 }
 
-form input,textarea {
+#add_product input,textarea {
     width: auto;
     font-size: 18px;
     padding: 10px 8px;
@@ -58,19 +82,19 @@ form input,textarea {
     border: 2px solid gray;
 }
 
-form textarea {
+#add_product textarea {
     height: 200px;
     resize: none;
 }
 
-form legend {
+#add_product legend {
     font-size: 20px;
     text-align: left;
     font-weight: 600;
     color:rgb(68, 52, 26);
 }
 
-form fieldset {
+#add_product fieldset {
     margin: 20px 0px;
     width: auto;
     border-radius: 10px;
@@ -81,20 +105,20 @@ form fieldset {
     align-items: flex-start;
 }
 
-form div {
+#add_product div {
     display: flex;
     flex-direction: row-reverse;
     text-align: left;
     gap: 10px;
 }
 
-form fieldset input {
+#add_product fieldset input {
     width: 20px;
     height: 20px;
     border: 2px solid black;
 }
 
-form fieldset label {
+#add_product fieldset label {
     font-size: 20px;
     text-align: left;
     margin-top: 0px;
@@ -104,7 +128,7 @@ form fieldset label {
 
 
 
-form button {
+#add_product button {
     font-size: 20px;
     width: 40%;
     margin: 15px auto;
@@ -117,6 +141,81 @@ form button {
     border-radius: 10px;
 }
 
-form button:hover {
+#add_product button:hover {
     background-color: wheat;
 }
+
+#products-list {
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    width: auto;
+    padding: 20px;
+    gap: 20px;
+}
+
+#products-list .product {
+    width: 300px;
+    background-color: whitesmoke;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.product img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.product h2 {
+    font-size: 22px;
+}
+
+.product p {
+    font-size: 18px;
+    margin: 8px 0px;
+}
+
+.product .product-btns-group1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.product .product-btns-group1 form button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.product-btns-group1 form #update_product {
+    background-color: lightblue;
+}
+
+.product-btns-group1 form #delete_product {
+    background-color: crimson;
+}
+
+.product-btns-group1 form #update_product:hover {
+    background-color: gray;
+}
+
+.product-btns-group1 form #delete_product:hover {
+    background-color: gray;
+}
+
+
+

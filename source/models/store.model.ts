@@ -9,13 +9,13 @@ interface Store {
     price: number;
     category: mongoose.Types.Array<string>;
     image: {
-        fieldname: string,
-        originalname: string,
-        encoding: string,
-        mimetype: string,
-        destination: string,
-        filename: string,
         path: string,
+        filename: string,
+        format: string,
+        width: string,
+        height: string,
+        channels: string,
+        premultiplied: string,
         size: number
     },
     max_quantity: number,
@@ -40,23 +40,7 @@ const StoreSchema = new mongoose.Schema<Store>({
         type: [String]
     },
     image: {
-        fieldname: {
-            type: String,
-            required: true
-        },
-        originalname: {
-            type: String,
-            required: true
-        },
-        encoding: {
-            type: String,
-            required: true
-        },
-        mimetype: {
-            type: String,
-            required: true
-        },
-        destination: {
+        path: {
             type: String,
             required: true
         },
@@ -64,8 +48,24 @@ const StoreSchema = new mongoose.Schema<Store>({
             type: String,
             required: true
         },
-        path: {
+        format: {
             type: String,
+            required: true
+        },
+        width: {
+            type: Number,
+            required: true
+        },
+        height: {
+            type: Number,
+            required: true
+        },
+        channels: {
+            type: Number,
+            required: true
+        },
+        premultiplied: {
+            type: Boolean,
             required: true
         },
         size: {

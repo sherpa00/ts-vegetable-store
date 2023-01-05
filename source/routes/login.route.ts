@@ -2,11 +2,12 @@ import { Router,Request,Response } from "express";
 import { body } from "express-validator";
 import Login from "../controllers/login.controller";
 
+
 // ______________________ LOGIN ROUTER __________________
 
 const router = Router();
 
-router.get("/",(req: Request,res: Response) => {
+router.get("/",async (req: Request,res: Response) => {
     res.render("login");
 });
 router.post("/",

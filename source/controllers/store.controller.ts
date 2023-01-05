@@ -1,5 +1,7 @@
 
 import { Request,Response,NextFunction } from "express";
+import path from "path";
+import sharp from "sharp";
 import StoreModel from "../models/store.model";
 
 // type for req.body
@@ -27,16 +29,40 @@ const CreateStoreProduct = async (req: Request,res: Response,next: NextFunction)
             next();
         };
 
+        // function to replace to new format from the file path
+        const replaceFormat = (file: string,format: string) : string => {
+            let temp : string[] = file.split(".");
+            let oldFormat: string = temp[temp.length-1];
+            let newFormat : string = file.replace(oldFormat,format);
+            return newFormat;
+        }
+
+        // new filename by replacing the old filename into jpeg format
+        let newFileName = replaceFormat(req.file?.filename!,"jpeg");
+
+        // image resizing and manipulation --> saved to resized folder
+        const processedFile = await sharp(req.file?.path)
+        .toFormat("jpeg")
+        .jpeg({mozjpeg: true,quality: 100,chromaSubsampling: "4:4:4",force: true}) // conver to jpeg forcefully
+        .resize(700,700,{fit: "cover"})
+        .toFile(path.resolve(req.file?.destination!,"resized",newFileName));
+        
+        // image file object to be saved in database
+        let imageFile = {
+            path: `/uploads/resized/${newFileName}`,
+            filename: newFileName,
+            ...processedFile
+        }
+
         // factorize the req.body to be saved
         let reqBody : ReqBody = {
             title: req.body.title,
             description: req.body.description,
             price: Number(req.body.price),
             category: [],
-            image: req.file,// add the req.file image
+            image: imageFile,// add the the image file oject
             max_quantity: Number(req.body.max_quantity)
         };
-        console.log(reqBody);
         
         // finalize the category of products in an array
         if (req.body.fruit) {
@@ -67,8 +93,7 @@ const CreateStoreProduct = async (req: Request,res: Response,next: NextFunction)
         
         res.redirect("/admin");
     } catch (err) {
-        res.status(400).send("Error while creating store product...")
-        throw new Error("Error while creating a store product ...");
+        res.status(400).send("Error while creating store product...");
     }
     next();
 }

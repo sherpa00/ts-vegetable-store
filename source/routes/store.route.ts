@@ -2,11 +2,12 @@ import { Express,Router,Request } from "express";
 import { CreateStoreProduct,DeleteAllStoreProduct,DeleteStoreProduct,GetAllStoreProduct, GetStoreProduct, UpdateStoreProduct } from "../controllers/store.controller";
 import isAdmin from "../middlewares/isAdmin.middleware";
 import multer from "multer";
+import path from "path";
 
 // muter disk storage
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null,"./uploads")
+        callback(null,path.join(__dirname,"../public/uploads"))
     },
     filename:  function (req, file, callback) {
         callback(null,Date.now() + "-" + file.originalname);
