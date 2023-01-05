@@ -18,4 +18,8 @@
   <li>EJS template</li>
   <li>JWT and passport.js</li>
   <li>Morgan Log Library</li>
+  <li>Multer</li>
+  <li>Sharp</li>
+  <li>cookie-parser</li>
+  <li>Passport and JWT and bcrypt</li>
 </ul>
