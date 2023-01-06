@@ -4,6 +4,8 @@ import morgan from "morgan";
 import path from "path";
 import cookieParser from "cookie-parser";
 import passport from "./configs/passport.config";
+import methodOveride from "method-override";
+
 import storeRoutes from "./routes/store.route";
 import signupRoutes from "./routes/signup.route";
 import loginRoutes from "./routes/login.route";
@@ -26,6 +28,7 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 app.set("views",path.join(__dirname,"views"))
 app.set("view engine","ejs");
+app.use(methodOveride("_method")); // method override query string
 
 // __________________________ ROUTES _________________
 // render home page

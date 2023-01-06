@@ -19,7 +19,6 @@ interface Store {
         size: number
     },
     max_quantity: number,
-    id: number
 };
 
 // store schema
@@ -77,11 +76,8 @@ const StoreSchema = new mongoose.Schema<Store>({
         type: Number,
         required: true
     },
-    id: {
-        type: Number,
-        required: true
-    }
-});
+},{timestamps: true }// createdAt and updatedAt schema
+);
 
 // store model
 const StoreModel = mongoose.model<Store>("store",StoreSchema);
