@@ -1,0 +1,121 @@
+:root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    width: auto;
+    padding: 0;
+    margin: 0;
+    background-color: wheat;
+}
+
+h2 {
+    font-size: 40px;
+    text-align: center;
+}
+
+.update_product {
+    width: 60%;
+    background-color: whitesmoke;
+    border-radius: 20px;
+    margin: 30px auto;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.update_product h2 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.update_product label {
+    font-size: 20px;
+    text-align: left;
+    margin-top: 25px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: rgb(68. 52. 26);
+
+}
+
+.update_product input,textarea {
+    width: auto;
+    font-size: 18px;
+    padding: 10px 8px;
+    border-radius: 10px;
+    border: 2px solid gray;
+}
+
+.update_product textarea {
+    height: 200px;
+    resize: none;
+}
+
+.update_product legend {
+    font-size: 20px;
+    text-align: left;
+    font-weight: 600;
+    color:rgb(68. 52. 26);
+}
+
+.update_product fieldset {
+    margin: 20px 0px;
+    width: auto;
+    border-radius: 10px;
+    padding: 20px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.update_product div {
+    display: flex;
+    flex-direction: row-reverse;
+    text-align: left;
+    gap: 10px;
+}
+
+.update_product fieldset input {
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+}
+
+.update_product fieldset label {
+    font-size: 20px;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-weight: 500;
+}
+
+
+
+.update_product button {
+    font-size: 20px;
+    width: 40%;
+    margin: 15px auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: lightgreen;
+    cursor: pointer;
+    border: 2px solid black;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.update_product button:hover {
+    background-color: wheat;
+}
+
+.update_product img {
+    width:40%;
+    margin: 5px auto;
+    border: 2px solid gray;
+    border-radius: 20px;
+}

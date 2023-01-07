@@ -2,7 +2,7 @@
 import { Request,Response,NextFunction } from "express";
 import path from "path";
 import sharp from "sharp";
-import { existsSync, readdir, unlinkSync} from "fs";
+import { existsSync, fstat, readdir, unlinkSync} from "fs";
 import StoreModel from "../models/store.model";
 
 // type for req.body
@@ -125,25 +125,150 @@ const GetAllStoreProduct = async (req: Request,res: Response,next: NextFunction)
     next();
 }
 
-// UPDATE a store product
-const UpdateStoreProduct = async (req: Request,res: Response,next: NextFunction) => {
+// UPDATE a store product image
+const UpdateProductImage = async (req: Request,res: Response,next: NextFunction) => {
     try {
-        let store = await StoreModel.findByIdAndUpdate(req.params.id,{
-            title: req.body.title,
-            description: req.body.description,
-            price: req.body.price,
-            category: req.body.category,
-            image: req.body.image,
-            max_quantity: req.body.max_quantity
-        },{new: true});
 
-        res.status(200).json(store);
-        console.log('Store product updated');
+        // if the post data does not consists of req.file image then redirect it to admin route
+        if (!req.file) {
+            res.redirect("/admin");
+            next();
+        };
+
+        // first find the product and delete the product from filesystem
+        const findProductById = await StoreModel.findById(req.params.id);
+
+        unlinkSync(path.join(__dirname,`../public/${findProductById?.image.path!}`));
+        console.log("Old Product image removed")
+
+        // function to replace to new format from the file path
+        const replaceFormat = (file: string,oldFormat: any,newFormat: string) : string => {
+            let resPath : string = file.replace(oldFormat,newFormat);
+            return resPath;
+        }
+
+        let oldMimeFormat : any = req.file?.mimetype!.split("/")[1];
+        // new filename by replacing the old filename into jpeg format
+        let newFileName = Date.now() + "-" + replaceFormat(req.file?.originalname!,oldMimeFormat,"jpeg");
+
+        
+        // image resizing and manipulation --> saved to resized folder
+        const processedFile = await sharp(req.file?.buffer)
+        .toFormat("jpeg")
+        .jpeg({mozjpeg: true,quality: 100,chromaSubsampling: "4:4:4",force: true}) // conver to jpeg forcefully
+        .resize(700,700,{fit: "cover"})
+        .toFile(path.resolve(__dirname,"../public/uploads",newFileName));
+        
+        // image file object to be saved in database
+        let imageFile = {
+            path: `/uploads/${newFileName}`,
+            filename: newFileName,
+            ...processedFile
+        };
+
+        await StoreModel.findByIdAndUpdate(req.params.id,{
+            image: imageFile
+        });
+
+        console.log("Product Image updated");
+        res.status(200).redirect("/admin");
+        
     } catch (err) {
-        res.status(400).send("Error while updating store product");
-        throw new Error("Error while updating the store product...");
+        console.log(err);
+        res.redirect("/admin");      
     }
 }
+
+// update product title
+const UpdateProductTitle = async (req: Request,res: Response,next: NextFunction): Promise<void> => {
+    try {
+        await StoreModel.findByIdAndUpdate(req.params.id,{
+            title: req.body.title
+        });
+        console.log("Product Title updated");
+        res.status(200).redirect("/admin");
+    } catch (err) {
+        console.log(err);
+        res.redirect("/admin");
+    }
+}
+
+// update product description
+const UpdateProductDescription = async (req: Request,res: Response,next: NextFunction): Promise<void> => {
+    try {
+        await StoreModel.findByIdAndUpdate(req.params.id,{
+            description: req.body.description
+        });
+        console.log("Product Description updated");
+        res.status(200).redirect("/admin");
+    } catch (err) {
+        console.log(err);
+        res.redirect("/admin");
+    }
+}
+
+// update product price
+const UpdateProductPrice = async (req: Request,res: Response,next: NextFunction): Promise<void> => {
+    try {
+        await StoreModel.findByIdAndUpdate(req.params.id,{
+            price: req.body.price
+        });
+        console.log("Product Price updated");
+        res.status(200).redirect("/admin");
+    } catch (err) {
+        console.log(err);
+        res.redirect("/admin");
+    }
+}
+
+// update product max quantity
+const UpdateProductMaxQuantity = async (req: Request,res: Response,next: NextFunction): Promise<void> => {
+    try {
+        await StoreModel.findByIdAndUpdate(req.params.id,{
+            max_quantity: req.body.max_quantity
+        });
+        console.log("Product Title updated");
+        res.status(200).redirect("/admin");
+    } catch (err) {
+        console.log(err);
+        res.redirect("/admin");
+    }
+}
+
+// update product category
+const UpdateProductCategory = async (req: Request,res: Response,next: NextFunction): Promise<void> => {
+    try {
+        let reqBody = [];
+
+        if (req.body.fruit) {
+            reqBody.push(req.body.fruit);
+        }
+        if (req.body.green_vegetable) {
+            reqBody.push(req.body.green_vegetable);
+        }
+        if (req.body.vegetable) {
+            reqBody.push(req.body.vegetable);
+        }
+        if (req.body.winter) {
+            reqBody.push(req.body.winter);
+        }
+        if (req.body.summer) {
+            reqBody.push(req.body.summer);
+        }
+
+        await StoreModel.findByIdAndUpdate(req.params.id,{
+            category: reqBody
+        });
+
+        console.log("Product Category updated");
+        res.status(200).redirect("/admin");
+    } catch (err) {
+        console.log(err);
+        res.redirect("/admin");
+    }
+}
+
+
 
 
 // DELETE a store product
@@ -198,5 +323,5 @@ const DeleteAllStoreProduct = async (req: Request,res: Response,next: NextFuncti
 }
 
 
-export {CreateStoreProduct,GetStoreProduct,GetAllStoreProduct,UpdateStoreProduct,DeleteStoreProduct,DeleteAllStoreProduct};
+export {CreateStoreProduct,GetStoreProduct,GetAllStoreProduct,UpdateProductTitle,UpdateProductPrice,UpdateProductMaxQuantity,UpdateProductImage,UpdateProductDescription,UpdateProductCategory,DeleteStoreProduct,DeleteAllStoreProduct};
 

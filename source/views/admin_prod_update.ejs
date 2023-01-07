@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin_prod_update.css" />
+    <title>Store Product Update</title>
+</head>
+<body>
+    <h2>
+        Update store product
+    </h2>
+
+    <form class="update_product" method="post" action="/store/title/<%= product._id  %>?_method=PATCH">
+        <label for="title">
+            Vegetable Title:
+        </label>
+        <input type="text" id="title" name="title" placeholder="Enter vegetable's name.."  required value="<%= product.title  %> "/>
+
+        <button type="submit">
+            Update Title
+        </button>
+    </form>
+
+    <form class="update_product" method="post" action="/store/price/<%= product._id  %>?_method=PATCH">
+        <label for="price">
+            Vegetable Price:
+        </label>
+        <input type="number" id="price" name="price" value="<%= locals.product.price  %>" required placeholder="Enter vegetable's price.."/>
+
+        <button type="submit">
+            Update Price
+        </button>
+    </form>
+
+    <form class="update_product" method="post" action="/store/description/<%= product._id  %>?_method=PATCH">
+        <label for="description">
+            Vegetable Description:
+        </label>
+        <textarea id="description" name="description" required><%=product.description%></textarea>
+
+        <button type="submit">
+            Update Description
+        </button>
+    </form>
+
+    <form class="update_product" method="post" action="/store/category/<%= product._id  %>?_method=PATCH">
+        <fieldset>
+            <legend>Vegetable Category</legend>
+            
+            <div>
+                <label for="green_vegetable">
+                    green vegetable
+                </label>
+                <input type="checkbox" id="green_vegetable" name="green_vegetable" value="green vegetable" <% if (product.category.includes("green vegetable")) { %>
+                    checked
+                <% } %> />
+            </div>
+            <div>
+                <label for="vegetable">
+                    vegetable
+                </label>
+                <input type="checkbox" id="vegetable" name="vegetable" value="vegetable" <% if (product.category.includes("vegetable")) { %>
+                    checked
+                <% } %> />
+            </div>
+            <div>
+                <label for="fruit">
+                    fruit
+                </label>
+                <input type="checkbox" id="fruit" name="fruit" value="fruit" <% if (product.category.includes("fruit")) { %>
+                    checked
+                <% } %> />
+            </div>
+            <div>
+                <label for="winter">
+                    winter
+                </label>
+                <input type="checkbox" id="winter" name="winter" value="winter" <% if (product.category.includes("winter")) { %>
+                    checked
+                <% } %> />
+            </div>
+            <div>
+                <label for="summer">
+                    summer
+                </label>
+                <input type="checkbox" id="summer" name="summer" value="summer" <% if (product.category.includes("summer")) { %>
+                    checked
+                <% } %> />
+            </div>
+        </fieldset>
+
+        <button type="submit">
+            Update Category
+        </button>
+    </form>
+
+    <form class="update_product" method="post" action="/store/image/<%= product._id  %>?_method=PATCH" enctype="multipart/form-data">
+        <img src="<%= product.image.path  %>" alt="product images" />
+        <h2>
+            Current Product Image
+        </h2>
+        <label for="image">
+            Vegetable Image:
+        </label>
+        <input type="file" id="image" name="image" required/>
+
+        <button type="submit">
+            Update Image
+        </button>
+    </form>
+
+    <form class="update_product" method="post" action="/store/max_quantity/<%= product._id  %>?_method=PATCH">
+        <label for="max_quantity">
+            Vegetable Max Quantity:
+        </label>
+        <input type="number" id="max_quantity" name="max_quantity" value="<%= product.max_quantity %>" required/>
+
+        <button type="submit">
+            Update Max Quantity
+        </button>
+    </form>
+
+
+
+</body>
+</html>

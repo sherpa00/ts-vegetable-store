@@ -117,7 +117,7 @@
                     <strong>Max Quantity :</strong> <%= product.max_quantity %>
                 </p>
                 <div class="product-btns-group1">
-                    <form>
+                    <form method="get" action="/admin/product/update/<%= product._id  %> ">
                         <button type="submit" id="update_product">
                             Update
                         </button>
