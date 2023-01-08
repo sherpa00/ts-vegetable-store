@@ -2,7 +2,7 @@
 import { Request,Response,NextFunction } from "express";
 import path from "path";
 import sharp from "sharp";
-import { existsSync, fstat, readdir, unlinkSync} from "fs";
+import { existsSync, readdir, unlinkSync} from "fs";
 import StoreModel from "../models/store.model";
 
 // type for req.body
@@ -117,7 +117,10 @@ const GetAllStoreProduct = async (req: Request,res: Response,next: NextFunction)
     try {
         let store = await StoreModel.find({});
         console.log("Got all products");
-        res.status(200).json(store);
+        res.status(200).render("store",{
+            products: store
+        });
+        
     } catch (err) {
         res.status(400).send("Error while gettin store products..")
         throw new Error("Error while getting the store product ....");
