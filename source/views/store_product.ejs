@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/store_product.css" />
+    <title>Store Product</title>
+</head>
+<body>
+    <%- include('partials/navbar.ejs')  %> 
+
+    <div id="ads">
+        <p>
+            !! Happy New Year !!
+        </p>
+    </div>
+
+    <h2 id="paginate">
+        <a href="/store">
+            / store /
+        </a>
+        <a href="/store/<%= product._id  %> "> 
+            <%= product.title %> 
+        </a>
+    </h2>
+
+    <div id="product_container">
+        <img src="<%= product.image.path  %> " alt="product image" />
+        <div id="product_info">
+            <h2 id="product_title">
+                <%= product.title %> 
+            </h2>
+            <h3 id="product_price">
+                Rs. <%= product.price  %> 
+            </h3>
+            <p id="product_desc">
+                <%= product.description  %> 
+            </p>
+
+            <div>
+                <p>
+                    <strong>ID : </strong> <%= product._id %>
+                </p>
+                <p>
+                    <strong>PRODUCT TYPE : </strong> <%= product.category %>
+                </p>
+                <p>
+                    <strong>AVAILABILITY: </strong> In stock (<%= product.max_quantity %>) item(s)
+                </p>
+                <p>
+                    <strong>VENDOR</strong> Vegetable Store
+                </p>
+                <p>
+                    <strong>ADDED</strong> <%= product.createdAt %>
+                </p>
+            </div>
+
+            <p id="per">
+                (+/-)/1kg
+            </p>
+
+            <form method="post" action="/store/cart/<%= product._id %>">
+                <input type="number" min="1" max="<%= Number(product.max_quantity) %>" value="1" onkeydown="return false"/>
+                <button type="submit">
+                    Add to cart
+                </button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

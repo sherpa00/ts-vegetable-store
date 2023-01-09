@@ -51,7 +51,7 @@ const Login = async (req: Request,res: Response,next: NextFunction) => {
             if (userByEmail.isAdmin) {
                 return res.cookie("token",signed,{
                     httpOnly: true,
-                    maxAge: 360 * 60 * 60,
+                    expires: new Date(Date.now() * 60000),
                     secure: false
                 })
                 .redirect("/admin");

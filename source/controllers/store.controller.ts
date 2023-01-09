@@ -102,12 +102,23 @@ const CreateStoreProduct = async (req: Request,res: Response,next: NextFunction)
 // READ a store product
 const GetStoreProduct = async (req: Request,res: Response,next: NextFunction) => {
     try {
-        let store = await StoreModel.findById(req.params.id);
+        // first validate if the product exists or not by finding it with req.params.id
+        let {id} = req.params;
+        let findByIdProduct = await StoreModel.findById(id);
+
+        // if product is not found redirect it to /store
+        if (!findByIdProduct) {
+            console.log("Errro!! Product not found.")
+            res.redirect("/store");
+            next();
+        }
+
         console.log("Got a store product.");
-        res.status(200).json(store);
+        res.status(200).render('store_product',{product: findByIdProduct});
     } catch (err) {
-        res.status(400).send("Error while gettin a store product..")
-        throw new Error("Error while getting a store product ....");
+        console.log(err);
+        console.log("Error ! Product not valid.");
+        res.redirect("/store");
     }
     next();
 }

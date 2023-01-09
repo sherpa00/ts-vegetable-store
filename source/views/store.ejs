@@ -36,9 +36,14 @@
         <div id="products_container_list">
             <% products.forEach(product => { %>
                 <div class="product_card">
-                    <img src="<%= product.image.path  %>" alt="prouct image" />
+                    <a href="/store/<%= product._id  %> ">
+                        <img src="<%= product.image.path  %>" alt="prouct image" />
+                    </a>
+                    
                     <h2 class="product_title">
-                        <%= product.title  %> 
+                        <a href="/store/<%= product._id  %>">
+                            <%= product.title  %> 
+                        </a>
                     </h2>
                     <h3 class="product_price">
                         Rs. <%= product.price %>
@@ -47,14 +52,14 @@
                         (+/-)/1kg
                     </p>
                     <div class="product_btns">
-                        <form class="product_show">
+                        <form class="product_show" method="get" action="/store/<%= product._id  %> ">
                             <button type="submit">
-                                SHOW
+                                <img src="/assets/show_more.png" alt="show more" title="show more"/>
                             </button>
                         </form>
                         <form class="product_add">
                             <button type="submit">
-                                ADD
+                                <img src="/assets/cart_add.jpg" alt="cart add" title="add to cart"/>
                             </button>
                         </form>
                     </div>

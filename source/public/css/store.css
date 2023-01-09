@@ -12,6 +12,10 @@ body {
 }
 
 nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -142,6 +146,7 @@ div#products_container_list .product_card {
     padding: 15px;
     transition:ease-in-out;
     transition-duration: 400ms;
+    border: 2px solid whitesmoke
 }
 
 .product_card:hover {
@@ -181,46 +186,55 @@ div#products_container_list .product_card p {
     opacity: 0.7;
 }
 
-div#products_container_list .product_card div.product_btns {
+div#products_container_list .product_card div {
     width: 100%;
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    margin: 20px auto;
+    margin: 30px auto;
 }
 
 div#products_container_list .product_card div form {
-    width: 100%;
+    width: 50%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 10px;
 }
 
 
 div#products_container_list .product_card div form button {
-    font-size: 18px;
-    border-radius: 10px;
-    padding: 8px 15px;
+    background-color: white;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
     cursor: pointer;
-    margin: 10px auto;
+    color: black;
+    transition-duration: 400s;
+    transition-timing-function: ease-in-out;
 }
 
-div#products_container_list .product_card div form.product_show button {
-    background-color: lightblue;
+div#products_container_list .product_card div form.product_show button img {
+    width: 30px;
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
 }
 
-div#products_container_list .product_card div form.product_show button:hover {
-    background-color: whitesmoke;
+div#products_container_list .product_card div form.product_show button img:hover {
+    transform: scale(1.1);
+    filter: contrast(100);
 }
 
-div#products_container_list .product_card div form.product_add button {
-    background-color: lightcoral;
+div#products_container_list .product_card div form.product_add button img {
+    width: 35px;
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
 }
 
-div#products_container_list .product_card div form.product_add button:hover {
-    background-color: whitesmoke;
+div#products_container_list .product_card div form.product_add button img:hover {
+    transform: scale(1.1);
+    filter: contrast(100);
 }
 
