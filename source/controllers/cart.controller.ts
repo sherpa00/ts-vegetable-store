@@ -7,7 +7,7 @@ import StoreModel from "../models/store.model";
 // create cart
 const createCart = async (req:Request,res:Response,next: NextFunction) => {
     try {
-        let productId : string,quantity: number;
+        let productInStoreId : string,quantity: number;
 
         if (!req.params.id) {
             console.log("Id not found");
@@ -15,7 +15,18 @@ const createCart = async (req:Request,res:Response,next: NextFunction) => {
             next();
         }
 
-        productId = req.params.id;
+        productInStoreId = req.params.id;
+
+        // validate if the productInStore is already in cart or not
+        let productInStoreInCart = await CartModel.findOne({
+            'product._id': productInStoreId,
+        });
+        // if productInStore found then redirect it to cart route
+        if (productInStoreInCart) {
+            console.log("productInStore already in cart");
+            res.status(200).redirect("/cart");
+            next();
+        }
 
         if (!req.body.quantity) {
             quantity = 1;
@@ -27,23 +38,23 @@ const createCart = async (req:Request,res:Response,next: NextFunction) => {
         let {_id} : any = req.user;
         let authenticatedUserId : string = _id;
 
-        // here find the product from id
-        const product = await StoreModel.findById(productId);
+        // here find the productInStore from id
+        const productInStore = await StoreModel.findById(productInStoreId);
 
         // make the cart model here 
         let newCart = await new CartModel({
             userId: authenticatedUserId,
             product: {
-                _id: product?._id,
-                title: product?.title,
-                description: product?.description,
-                price: product?.price!,
-                category: product?.category,
-                image: product?.image,
-                max_quantity: product?.max_quantity,
+                _id: productInStore?._id,
+                title: productInStore?.title,
+                description: productInStore?.description,
+                price: productInStore?.price!,
+                category: productInStore?.category,
+                image: productInStore?.image,
+                max_quantity: productInStore?.max_quantity,
             },
-            product_quantity: quantity,
-            total_sum: product?.price! * quantity,
+            productInStore_quantity: quantity,
+            total_sum: productInStore?.price! * quantity,
             checked: false
         });
 
@@ -69,9 +80,9 @@ const getCart = async (req: Request,res: Response,next: NextFunction) => {
         let {_id} : any = req.user;
         let authenticatedId : string = _id;
 
-        let cart = await CartModel.findOne({userId: authenticatedId});
+        let cart = await CartModel.find({userId: authenticatedId});
 
-        res.status(200).render('cart',{cart: cart});
+        res.status(200).render('cart',{carts: cart});
         console.log("got cart");
     } catch (err) {
         console.log(err);
@@ -94,7 +105,7 @@ const updateCart = async (req: Request,res: Response,next: NextFunction) => {
         let cartById = await CartModel.findById(cartId);
 
         let cart = await CartModel.findOneAndUpdate({userId: authenticatedId,_id : cartId},{
-            product_quantity: req.body.product_quantity,
+            productInStore_quantity: req.body.product_quantity,
              total_sum: cartById?.product!.price! * req.body.product_quantity
         });
 
@@ -104,7 +115,7 @@ const updateCart = async (req: Request,res: Response,next: NextFunction) => {
             next();
         }
 
-        res.status(200).json(cart);
+        res.status(200).redirect("/cart");
         console.log("got cart");
     } catch (err) {
         console.log(err);
@@ -131,7 +142,7 @@ const deleteCart = async (req: Request,res: Response,next: NextFunction) => {
             next();
         }
 
-        res.status(200).json(cart);
+        res.status(200).redirect("/cart");
         console.log("delted on cart");
     } catch (err) {
         console.log(err);

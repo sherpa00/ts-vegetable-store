@@ -24,5 +24,49 @@
             cart
         </a>
     </h2>
+
+    <div id="cart_container">
+        <h2>
+            My Cart
+        </h2>
+
+        <ul id="category">
+            <li>Product</li>
+            <li>Price</li>
+            <li>Quantity</li>
+            <li>Total Sum</li>
+        </ul>
+        <div id="cart_list">
+
+            <% locals.carts.forEach(cart => { %>
+                <div class="cart_card">
+                    <img src="<%= cart.product.image.path  %>" alt="cart product iamge" />
+                    <h2 class="product_title">
+                        <%= cart.product.title  %>
+                        <span id="per">
+                            (+/-)/1kg
+                        </span>
+                    </h2>
+                    <h2 class="product_price">
+                        <%= cart.product.price  %> 
+                    </h2>
+                    <form class="cart_update" method="post" action="/cart/<%= cart._id  %>?_method=PATCH"> 
+                        <input type="number" min="1" max="<%= cart.product.max_quantity  %> " value="<%= cart.product_quantity  %>" name="product_quantity" onkeydown="return false" />
+                        <button type="submit">
+                            Update cart
+                        </button>
+                    </form>
+                    <h2 class="product_total">
+                        <%= cart.total_sum  %> 
+                    </h2>
+                    <form class="cart_delete" method="post" action="/cart/<%= cart._id  %>?_method=DELETE">
+                        <button type="submit">
+                            delete
+                        </button>
+                    </form>
+                </div>
+            <% }) %>
+        </div>
+    </div>
 </body>
 </html>
