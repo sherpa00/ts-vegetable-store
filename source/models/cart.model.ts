@@ -49,6 +49,10 @@ const CartSchema = new Schema<Cart>({
             type: String,
             required: true
         },
+        price: {
+            type: Number,
+            required: true
+        },
         category: [String],
         image: {
             path: {

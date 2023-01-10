@@ -11,6 +11,8 @@ import signupRoutes from "./routes/signup.route";
 import loginRoutes from "./routes/login.route";
 import logoutRoutes from "./routes/logout.route";
 import adminRoutes from "./routes/admin.route";
+import cartRoutes from "./routes/cart.route";
+
 import isLoggedIn from "./middlewares/isLoggedIn.middleware";
 
 
@@ -48,5 +50,6 @@ app.use("/signup",isLoggedIn,signupRoutes);
 app.use("/login",isLoggedIn,loginRoutes);
 app.use("/logout",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),logoutRoutes);
 app.use("/admin",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),adminRoutes);
+app.use("/cart",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),cartRoutes);
 
 export default app;
