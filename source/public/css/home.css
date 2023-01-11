@@ -14,6 +14,7 @@ body {
 }
 
 nav {
+    z-index: 1000;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -71,7 +72,7 @@ header {
     width: 70%;
     margin: 15px auto;
     text-align: center;
-    height: 100vh;
+    height: 110vh;
 }
 
 header img {

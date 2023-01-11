@@ -12,6 +12,7 @@ body {
 }
 
 nav {
+    z-index: 1000;
     position: sticky;
     top: 0;
     left: 0;
@@ -122,8 +123,8 @@ div#product_info h3#product_price {
 
 div#product_info p#product_desc {
     font-size: 18px;
-    margin-top: 0px;
     margin: 10px 0px;
+    margin-top: 0px;
     margin-bottom: 30px;
     line-height: 25px;
 }

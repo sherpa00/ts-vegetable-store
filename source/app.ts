@@ -1,3 +1,4 @@
+import * as dotenv from "dotenv";
 
 import express, { Express,NextFunction,Request,Response } from "express";
 import morgan from "morgan";
@@ -12,6 +13,8 @@ import loginRoutes from "./routes/login.route";
 import logoutRoutes from "./routes/logout.route";
 import adminRoutes from "./routes/admin.route";
 import cartRoutes from "./routes/cart.route";
+
+dotenv.config();
 
 import isLoggedIn from "./middlewares/isLoggedIn.middleware";
 
@@ -39,9 +42,7 @@ app.get("/",isLoggedIn,(req:Request,res: Response) => {
 });
 
 app.get("/protected",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),(req: Request,res: Response,next: NextFunction) => {
-    res.status(200).json({
-        success: true
-    })
+    res.status(200).send("success");
 })
 
 

@@ -26,9 +26,6 @@
     </h2>
 
     <div id="cart_container">
-        <h2>
-            My Cart
-        </h2>
 
         <ul id="category">
             <li>Product</li>
@@ -36,36 +33,76 @@
             <li>Quantity</li>
             <li>Total Sum</li>
         </ul>
+
         <div id="cart_list">
 
             <% locals.carts.forEach(cart => { %>
                 <div class="cart_card">
-                    <img src="<%= cart.product.image.path  %>" alt="cart product iamge" />
+                    <a href="/store/<%= cart.product._id  %>">
+                        <img src="<%= cart.product.image.path  %>" alt="cart product iamge" />
+                    </a>
                     <h2 class="product_title">
-                        <%= cart.product.title  %>
+                        <a href="/store/<%= cart.product._id %>">
+                            <%= cart.product.title  %>
+                        </a>
                         <span id="per">
                             (+/-)/1kg
                         </span>
                     </h2>
                     <h2 class="product_price">
-                        <%= cart.product.price  %> 
+                        Rs. <%= cart.product.price  %> 
                     </h2>
                     <form class="cart_update" method="post" action="/cart/<%= cart._id  %>?_method=PATCH"> 
-                        <input type="number" min="1" max="<%= cart.product.max_quantity  %> " value="<%= cart.product_quantity  %>" name="product_quantity" onkeydown="return false" />
+                        <input type="number" min="1" max="<%= cart.product.max_quantity  %> " value="<%= cart.product_quantity %>" name="product_quantity" onkeydown="return false" />
                         <button type="submit">
-                            Update cart
+                            <img src="/assets/refresh.png" alt="refresh" />
                         </button>
                     </form>
                     <h2 class="product_total">
-                        <%= cart.total_sum  %> 
+                        Rs. <%= cart.total_sum  %> 
                     </h2>
                     <form class="cart_delete" method="post" action="/cart/<%= cart._id  %>?_method=DELETE">
                         <button type="submit">
-                            delete
+                            <img src="/assets/delete.png" alt="delete" />
                         </button>
                     </form>
                 </div>
             <% }) %>
+        </div>
+
+        <div id="cart_summary">
+            <div id="cart_summary_info">
+                <h2 id="subtotal">
+                    <span>
+                        Subtotal :
+                    </span>
+                    <span>
+                        Rs. <%= summary.subtotal  %> 
+                    </span>
+                </h2>
+                <h2 id="shipping">
+                    <span>
+                        Shipping :
+                    </span>
+                    <span>
+                        Rs. <%= summary.shipping_fee %> 
+                    </span>
+                </h2>
+                <h2 id="total">
+                    <span>
+                        Total :
+                    </span>
+                    <span id="total_price">
+                        Rs. <%= summary.total  %> 
+                    </span>
+                </h2>
+                <form>
+                    <button type="submit">
+                        Checkout Now
+                    </button>
+                </form>
+            </div>
+            
         </div>
     </div>
 </body>

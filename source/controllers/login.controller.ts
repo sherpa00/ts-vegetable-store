@@ -51,8 +51,8 @@ const Login = async (req: Request,res: Response,next: NextFunction) => {
             if (userByEmail.isAdmin) {
                 return res.cookie("token",signed,{
                     httpOnly: true,
-                    expires: new Date(Date.now() * 60000),
-                    secure: false
+                    maxAge: 6000000,
+                    secure: false // only set true when https is used
                 })
                 .redirect("/admin");
             }
@@ -60,7 +60,7 @@ const Login = async (req: Request,res: Response,next: NextFunction) => {
             // set the token to res.cookie
             return res.cookie("token",signed,{
                 httpOnly: true,
-                maxAge: 1200000,
+                maxAge: 6000000,
                 secure: false // only set true when https is used
             })
             .redirect("/store"); // redirect after login 
@@ -84,7 +84,7 @@ const Login = async (req: Request,res: Response,next: NextFunction) => {
 
     } catch (err) {
         res.status(400).send("Error while loggin in.");
-        throw new Error("Error while loggin in.");
+        console.log(err);
     }
 }
 

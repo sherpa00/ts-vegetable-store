@@ -60,10 +60,10 @@
                 (+/-)/1kg
             </p>
 
-            <form method="post" action="/store/cart/<%= product._id %>">
-                <input type="number" min="1" max="<%= Number(product.max_quantity) %>" value="1" onkeydown="return false"/>
+            <form method="post" action="/cart/<%= product._id %>">
+                <input type="number" name="product_quantity" min="1" max="<%= Number(product.max_quantity) %>" value="1" onkeydown="return false"/>
                 <button type="submit">
-                    Add to cart
+                    Add to Cart
                 </button>
             </form>
         </div>

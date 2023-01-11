@@ -12,6 +12,7 @@ body {
 }
 
 nav {
+    z-index: 1000;
     position: sticky;
     top: 0;
     left: 0;
@@ -106,8 +107,8 @@ div#cart_container div#cart_list {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 15px;
 }
 
@@ -119,6 +120,7 @@ div#cart_list div.cart_card {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin: auto;
 }
 
 div.cart_card img {
@@ -150,13 +152,13 @@ div.cart_card h2.product_total {
 div.cart_card form.cart_update {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 div.cart_card form.cart_update input {
-    width: 80px;
+    width: 70px;
     font-size: 20px;
     font-weight: 600;
     text-align: center;
@@ -164,31 +166,94 @@ div.cart_card form.cart_update input {
 }
 
 div.cart_card form.cart_update button {
-    padding: 10px 25px;
-    background-color: lightgreen;
-    border-radius: 5px;
-    font-size: 20px;
+    background-color: white;
     text-align: center;
     cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+
+
+div.cart_card form.cart_update button img {
+    width: 30px;
+    height: 30px;
+    filter: contrast(70);
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
 }
 
-div.cart_card form.cart_update button:hover {
-    background-color: gray;
+div.cart_card form.cart_update button img:hover {
+    transform: rotate(50deg);
 }
 
 div.cart_card form.cart_delete button {
-    padding: 10px 25px;
-    background-color: crimson;
-    border-radius: 5px;
-    font-size: 20px;
+    background-color: white;
     text-align: center;
     cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+div.cart_card form.cart_delete button img {
+    width: 40px;
+    height: 40px;
+    filter: contrast(70);
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
 }
 
-div.cart_card form.cart_delete button:hover {
-    background-color: gray;
+div.cart_card form.cart_delete button img:hover {
+    transform: scale(1.1);
 }
+
+div#cart_summary {
+    width: 90%;
+    margin: 10px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+div#cart_summary div#cart_summary_info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+div#cart_summary_info h2 {
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 100px;
+    text-align: left;
+}
+
+div#cart_summary_info #total {
+    border-top:1px solid gray;
+    padding: 10px 0px;
+}
+
+div#cart_summary_info h2 #total_price {
+    font-size: 27px;
+    color: limegreen;
+}
+
+div#cart_summary_info form button {
+    font-size: 20px;
+    background-color: orange;
+    color: black;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+div#cart_summary_info form button:hover {
+    background-color: wheat;
+}
+
