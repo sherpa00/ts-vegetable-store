@@ -21,5 +21,7 @@
   <li>Multer</li>
   <li>Sharp</li>
   <li>cookie-parser</li>
-  <li>Passport and JWT and bcrypt</li>
+  <li>bcrypt</li>
+  <li>Express validator</li>
+  <li>Method Override</li>
 </ul>
