@@ -31,22 +31,27 @@
         </h2>
   
         <label for="title">
-            Vegetable Title:
+            Product Title:
         </label>
-        <input type="text" id="title" name="title" required placeholder="Enter vegetable's name.." />
+        <input type="text" id="title" name="title" required placeholder="Enter product's name.." />
         
         <label for="description">
-            Vegetable Description:
+            Product Description:
         </label>
-        <textarea type="text" id="description" name="description" required placeholder="Enter vegetable's Description.."></textarea>
+        <textarea type="text" id="description" name="description" required placeholder="Enter product's Description.."></textarea>
         
         <label for="price">
-            Vegetable Price:
+            Product Price:
         </label>
-        <input type="number" id="price" name="price" required placeholder="Enter vegetable's price.." />
-        
+        <input type="number" id="price" name="price" required placeholder="Enter products price.." />
+
+        <label for="price">
+            Product Type:
+        </label>
+        <input type="text" id="type" name="type" required placeholder="Enter products type.." />
+
         <fieldset>
-            <legend>Vegetable Category</legend>
+            <legend>Product Category</legend>
             
             <div>
                 <label for="green_vegetable">
@@ -81,12 +86,12 @@
         </fieldset>
 
         <label for="image">
-            Vegetable Image:
+            Product Image:
         </label>
         <input type="file" id="image" name="image" required/>
 
         <label for="max_quantity">
-            Vegetable Max Quantity:
+            Product Max Quantity:
         </label>
         <input type="number" id="max_quantity" name="max_quantity" />
 
@@ -106,6 +111,9 @@
                 </h2>
                 <p>
                     <strong>Description :</strong> <%= product.description %>
+                </p>
+                <p>
+                    <strong>Type :</strong> <%= product.type %>
                 </p>
                 <p>
                     <strong>Price :</strong> Rs. <%= product.price %>

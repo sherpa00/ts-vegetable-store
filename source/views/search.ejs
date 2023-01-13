@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/store.css"/>
-    <title>store</title>
+    <link rel="stylesheet" href="/css/search.css"/>
+    <title>search</title>
 </head>
 <body>
     <%- include('partials/navbar.ejs')  %> 
@@ -17,12 +17,12 @@
     </div>
     <div id="hero">
         <h2>
-            Our Products
+            Search Products
         </h2>
     </div>
 
     <form id="search_products" method="get" action="/search">
-        <input type="search" id="search_products" name="q" placeholder="I'm searching for " required/>
+        <input type="search" id="search_products" name="q" placeholder="I'm searching for" value="<%= searchText %> " required/>
         <button type="submit">
             SEARCH
         </button>
@@ -30,7 +30,7 @@
 
     <div id="products_container">
         <h2>
-            Our Products
+            <strong><%= count  %></strong> products found for <strong>"<%= searchText  %>"</strong>
         </h2>
 
         <div id="products_container_list">

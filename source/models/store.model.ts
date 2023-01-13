@@ -7,6 +7,7 @@ interface Store {
     title: string;
     description: string;
     price: number;
+    type: string;
     category: mongoose.Types.Array<string>;
     image: {
         path: string,
@@ -33,6 +34,10 @@ const StoreSchema = new mongoose.Schema<Store>({
     },
     price: {
         type: Number,
+        required: true
+    },
+    type: {
+        type: String,
         required: true
     },
     category: {
@@ -78,6 +83,9 @@ const StoreSchema = new mongoose.Schema<Store>({
     },
 },{timestamps: true }// createdAt and updatedAt schema
 );
+
+// create text index to store schema for search functionality
+StoreSchema.index({title: 'text',type: 'text'});
 
 // store model
 const StoreModel = mongoose.model<Store>("store",StoreSchema);

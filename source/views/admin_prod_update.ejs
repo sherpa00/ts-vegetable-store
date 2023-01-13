@@ -14,7 +14,7 @@
 
     <form class="update_product" method="post" action="/store/title/<%= product._id  %>?_method=PATCH">
         <label for="title">
-            Vegetable Title:
+            Product Title:
         </label>
         <input type="text" id="title" name="title" placeholder="Enter vegetable's name.."  required value="<%= product.title  %> "/>
 
@@ -25,7 +25,7 @@
 
     <form class="update_product" method="post" action="/store/price/<%= product._id  %>?_method=PATCH">
         <label for="price">
-            Vegetable Price:
+            Product Price:
         </label>
         <input type="number" id="price" name="price" value="<%= locals.product.price  %>" required placeholder="Enter vegetable's price.."/>
 
@@ -36,7 +36,7 @@
 
     <form class="update_product" method="post" action="/store/description/<%= product._id  %>?_method=PATCH">
         <label for="description">
-            Vegetable Description:
+            Product Description:
         </label>
         <textarea id="description" name="description" required><%=product.description%></textarea>
 
@@ -45,9 +45,20 @@
         </button>
     </form>
 
+    <form class="update_product" method="post" action="/store/type/<%= product._id  %>?_method=PATCH">
+        <label for="type">
+            Product Type:
+        </label>
+        <input type="text" id="type" name="type" placeholder="Enter product's name.."  required value="<%= product.type  %> "/>
+
+        <button type="submit">
+            Update Type
+        </button>
+    </form>
+
     <form class="update_product" method="post" action="/store/category/<%= product._id  %>?_method=PATCH">
         <fieldset>
-            <legend>Vegetable Category</legend>
+            <legend>Product Category</legend>
             
             <div>
                 <label for="green_vegetable">
@@ -113,7 +124,7 @@
 
     <form class="update_product" method="post" action="/store/max_quantity/<%= product._id  %>?_method=PATCH">
         <label for="max_quantity">
-            Vegetable Max Quantity:
+            Product Max Quantity:
         </label>
         <input type="number" id="max_quantity" name="max_quantity" value="<%= product.max_quantity %>" required/>
 

@@ -10,6 +10,7 @@ type ReqBody = {
     title: string;
     description: string;
     price: number,
+    type: string,
     category: string[],
     image: any,
     max_quantity: number
@@ -60,6 +61,7 @@ const CreateStoreProduct = async (req: Request,res: Response,next: NextFunction)
             title: req.body.title,
             description: req.body.description,
             price: Number(req.body.price),
+            type: req.body.type,
             category: [],
             image: imageFile,// add the the image file oject
             max_quantity: Number(req.body.max_quantity)
@@ -235,6 +237,20 @@ const UpdateProductPrice = async (req: Request,res: Response,next: NextFunction)
     }
 }
 
+// update product type
+const UpdateProductType = async (req: Request,res: Response,next: NextFunction): Promise<void> => {
+    try {
+        await StoreModel.findByIdAndUpdate(req.params.id,{
+            type: req.body.type
+        });
+        console.log("Product type updated");
+        res.status(200).redirect("/admin");
+    } catch (err) {
+        console.log(err);
+        res.redirect("/admin");
+    }
+}
+
 // update product max quantity
 const UpdateProductMaxQuantity = async (req: Request,res: Response,next: NextFunction): Promise<void> => {
     try {
@@ -336,6 +352,33 @@ const DeleteAllStoreProduct = async (req: Request,res: Response,next: NextFuncti
     next();
 }
 
+// store product search
+const SearchStoreProduct = async (req: Request,res: Response,next: NextFunction) => {
+    try {
 
-export {CreateStoreProduct,GetStoreProduct,GetAllStoreProduct,UpdateProductTitle,UpdateProductPrice,UpdateProductMaxQuantity,UpdateProductImage,UpdateProductDescription,UpdateProductCategory,DeleteStoreProduct,DeleteAllStoreProduct};
+        // if search query not found then show all products
+        if (!req.query.q) {
+            let store = await StoreModel.find({});
+            res.render("search",{products: store,searchText: "",count: store.length});
+            next();
+            return;
+        }
+
+        // get the search params
+        let searchText : any = req.query.q;
+
+
+        let store = await StoreModel.find({$text: {$search: searchText}});
+
+        res.status(200).render("search",{products: store,searchText: searchText,count: store.length});
+        console.log("search results");
+        console.log(store);
+    } catch(err) {
+        res.status(400).send("Error while searching store product");
+        console.log(err);
+    }
+}
+
+
+export {CreateStoreProduct,GetStoreProduct,GetAllStoreProduct,UpdateProductTitle,UpdateProductPrice,UpdateProductMaxQuantity,UpdateProductImage,UpdateProductDescription,UpdateProductType,UpdateProductCategory,DeleteStoreProduct,DeleteAllStoreProduct,SearchStoreProduct};
 
