@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/settings.css" />
+    <title>settings</title>
+</head>
+<body>
+    <%- include('partials/navbar.ejs')  %> 
+
+    <div id="ads">
+        <p>
+            !! Happy New Year !!
+        </p>
+    </div>
+
+    <h2 id="paginate">
+        <a href="/store">
+            / store /
+        </a>
+        <a href="/settings"> 
+            settings
+        </a>
+    </h2>
+
+    <div id="settings_container">
+
+        <div id="account_details">
+            <h3>
+                Account Details
+            </h3>
+            <ul>
+                <li>
+                    <strong>Username: </strong>
+                    <span>chawang</span> 
+                </li>
+                <li>
+                    <strong>Email: </strong>
+                    <span>www.cha@gmail.com</span>
+                </li>
+                <li>
+                    <strong>Type: </strong>
+                    <span>User</span>
+                </li>
+            </ul>
+            <form method="get" action="/logout">
+                <button type="submit">
+                    Logout
+                </button>
+            </form>
+        </div>
+
+
+        <div id="account_update">
+            <h3>
+                Account Update
+            </h3>
+        </div>
+        
+    </div>
+</body>
+</html>

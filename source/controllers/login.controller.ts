@@ -51,7 +51,7 @@ const Login = async (req: Request,res: Response,next: NextFunction) => {
             if (userByEmail.isAdmin) {
                 return res.cookie("token",signed,{
                     httpOnly: true,
-                    maxAge: 6000000,
+                    maxAge: 3600 * 1000,
                     secure: false // only set true when https is used
                 })
                 .redirect("/admin");
@@ -60,7 +60,7 @@ const Login = async (req: Request,res: Response,next: NextFunction) => {
             // set the token to res.cookie
             return res.cookie("token",signed,{
                 httpOnly: true,
-                maxAge: 6000000,
+                maxAge: 3600 * 1000,
                 secure: false // only set true when https is used
             })
             .redirect("/store"); // redirect after login 
