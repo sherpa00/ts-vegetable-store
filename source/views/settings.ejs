@@ -34,15 +34,27 @@
             <ul>
                 <li>
                     <strong>Username: </strong>
-                    <span>chawang</span> 
+                    <span>
+                        <%= user.username  %> 
+                    </span> 
                 </li>
                 <li>
                     <strong>Email: </strong>
-                    <span>www.cha@gmail.com</span>
+                    <span>
+                        <%= user.email  %> 
+                    </span>
                 </li>
                 <li>
                     <strong>Type: </strong>
-                    <span>User</span>
+                    <span>
+                        <% if (user.isAdmin) { %>
+                         Admin
+                        <% } %>
+                        <% if (!user.isAdmin) { %>
+                            User
+                        <% } %>
+                            
+                    </span>
                 </li>
             </ul>
             <form method="get" action="/logout">
@@ -59,7 +71,7 @@
             </h3>
 
             <div id="update_details">
-                <form>
+                <form method="post" action="/settings/account/update/username?_method=PATCH">
                     <label for="username">
                         Change Username
                     </label>
@@ -69,7 +81,7 @@
                     </button>
                 </form>
 
-                <form>
+                <form method="post" action="/settings/account/update/email?_method=PATCH">
                     <label for="email">
                         Change Email
                     </label>
@@ -79,11 +91,11 @@
                     </button>
                 </form>
 
-                <form>
+                <form method="post" action="/settings/account/update/password?_method=PATCH">
                     <label for="oldPassword">
                         Old Password
                     </label>
-                    <input type="" id="oldPassword" name="oldPassword" placeholder="...type old Password" required />
+                    <input type="password" id="oldPassword" name="oldPassword" placeholder="...type old Password" required />
                     <label for="newPassword">
                         New Password
                     </label>
@@ -93,7 +105,7 @@
                     </button>
                 </form>
 
-                <form id="delete_account">
+                <form id="delete_account" method="post" action="/settings/account/delete?_method=DELETE">
                     <p>
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id eligendi reprehenderit commodi, quia laudantium quasi nam molestias incidunt. Velit ad quae corrupti delectus impedit doloremque voluptatum eaque fuga est soluta.
                     </p>

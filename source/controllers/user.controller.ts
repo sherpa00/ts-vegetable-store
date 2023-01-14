@@ -43,6 +43,8 @@ const UpdateUsername = async (req: Request,res: Response,next: NextFunction) : P
         let user = await UserModel.findByIdAndUpdate(authenticatedUserId,{username: req.body.username},{new: true});
 
         console.log(user);
+        console.log("updated username");
+        res.status(200).redirect("/settings");
     } catch (err) {
         console.log(err);
         res.status(500).send("Error while updating the username");
@@ -60,6 +62,8 @@ const UpdateEmail = async (req: Request,res: Response,next: NextFunction) : Prom
         let user = await UserModel.findByIdAndUpdate(authenticatedUserId,{email: req.body.email},{new: true});
 
         console.log(user);
+        console.log("updated email");
+        res.status(200).redirect("/settings");
     } catch (err) {
         console.log(err);
         res.status(500).send("Error while updating the email");
@@ -77,14 +81,17 @@ const UpdatePassword = async (req: Request,res: Response,next: NextFunction) : P
         let UserById = await UserModel.findById(authenticatedUserId);
 
         // first compare the user's req.body.newPassword with the original password
-        let isValid = await compare(UserById?.hash!,req.body.oldPassword);
+        let isValid = await compare(req.body.oldPassword,UserById?.hash!);
 
         if (isValid) {
             let newHashedPassword = await hash(req.body.newPassword,UserById?.salt!);
             // update the password from usermodel and req.body.pass
             const user = await UserModel.findByIdAndUpdate(authenticatedUserId,{hash: newHashedPassword},{new: true});
 
+            // after updating user password clear token cookies and redirect to login page
             console.log(user);
+            console.log("Updated Password");
+            res.status(200).clearCookie("token").redirect("/login");
         } else {
             console.log("User password not valid");
             res.redirect("/settings");
@@ -106,7 +113,7 @@ const DeleteAccount = async (req: Request,res: Response,next: NextFunction) : Pr
         let UserById = await UserModel.findById(authenticatedUserId)
 
         // first verify the user's original given req.user.password from client
-        let isValid = await compare(UserById?.hash!,req.body.password);
+        let isValid = await compare(req.body.password,UserById?.hash!);
 
         if (isValid) {
             // secondly after validating user we can clear user's cart empty
@@ -115,7 +122,10 @@ const DeleteAccount = async (req: Request,res: Response,next: NextFunction) : Pr
             // then delete user account 
             let user = await UserModel.deleteOne({_id: authenticatedUserId});
 
+            // after removing account clear user account associated cookies
             console.log(user);
+            console.log("Deleted User");
+            res.clearCookie("token").status(200).redirect("/");
         } else {
             console.log("User is not valid");
             res.redirect("/settings");
