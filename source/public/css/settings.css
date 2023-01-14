@@ -85,19 +85,18 @@ div#settings_container {
     flex-direction: row;
     width: 90%;
     margin: 20px auto;
-    border: 2px solid whitesmoke;
-    padding: 20px;
     gap: 20px;
 }
 
 div#settings_container div#account_details {
     width: 30%;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-    border: 2px solid gray;
+    gap: 10px;
+    border: 3px solid whitesmoke;
     padding: 10px;
 }
 
@@ -107,7 +106,7 @@ div#settings_container div#account_details h3 {
     border-bottom: 1px solid gray;
     width: 80%;
     padding-bottom: 10px;
-    margin: 10px auto;
+    margin: 5px auto;
     text-align: center;
 }
 
@@ -151,10 +150,85 @@ div#account_details form button:hover {
 }
 
 div#settings_container div#account_update {
-    border: 2px solid gray;
-    background-color: ghostwhite;
+    border: 3px solid whitesmoke;
     width: 70%;
     padding: 10px;
-    height: 30vh;
 }
+
+div#account_update h3 {
+    font-size: 24px;
+    color: royalblue;
+    border-bottom: 1px solid gray;
+    width: 80%;
+    padding-bottom: 10px;
+    margin: 10px auto;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+div#account_update div#update_details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+div#update_details form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 15px;
+    width: 70%;
+    border: 2px solid lightblue;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+div#update_details form label {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+div#update_details form input {
+    width: 92%;
+    padding: 7px 10px;
+    font-size: 18px;
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+div#update_details form button{
+    padding: 7px 15px;
+    font-size: 18px;
+    background-color: skyblue;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+div#update_details form button:hover {
+    background-color: lightblue;
+}
+
+div#update_details form#delete_account {
+    border: 2px solid crimson;
+    align-items: center;
+}
+
+div#update_details form#delete_account button {
+    background-color: red;
+}
+
+div#update_details form#delete_account button:hover {
+    background-color: crimson;
+}
+
+
+
+
+
+
 
