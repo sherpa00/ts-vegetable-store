@@ -21,6 +21,15 @@
         </h2>
     </div>
 
+    <div id="cart_icon">
+        <p>
+            <%= cartCount  %> 
+        </p>
+        <a href="/cart">
+            <img src="/assets/cart.png" alt="cart icon" />
+        </a>
+    </div>
+
     <form id="search_products" method="get" action="/search">
         <input type="search" id="search_products" name="q" placeholder="I'm searching for " required/>
         <button type="submit">

@@ -4,6 +4,7 @@ import path from "path";
 import sharp from "sharp";
 import { existsSync, readdir, unlinkSync} from "fs";
 import StoreModel from "../models/store.model";
+import CartModel from "../models/cart.model";
 
 // type for req.body
 type ReqBody = {
@@ -15,8 +16,6 @@ type ReqBody = {
     image: any,
     max_quantity: number
 }
-
-
 
 // ___________________ STORE CONTROLLERS ___________________
 
@@ -115,8 +114,15 @@ const GetStoreProduct = async (req: Request,res: Response,next: NextFunction) =>
             next();
         }
 
+        // get the authenticated user's id
+        let {_id} : any = req.user!;
+        let authenticatedUserId : string = _id;
+
+        // also find the user's cart count
+        let cart = await CartModel.find({userId: authenticatedUserId});
+
         console.log("Got a store product.");
-        res.status(200).render('store_product',{product: findByIdProduct});
+        res.status(200).render('store_product',{product: findByIdProduct,cartCount: cart.length});
     } catch (err) {
         console.log(err);
         console.log("Error ! Product not valid.");
@@ -129,9 +135,18 @@ const GetStoreProduct = async (req: Request,res: Response,next: NextFunction) =>
 const GetAllStoreProduct = async (req: Request,res: Response,next: NextFunction) => {
     try {
         let store = await StoreModel.find({});
+
+        // get the authenticated user's id
+        let {_id} : any = req.user!;
+        let authenticatedUserId : string = _id;
+
+        // also find the user's cart count
+        let cart = await CartModel.find({userId: authenticatedUserId});
+
         console.log("Got all products");
         res.status(200).render("store",{
-            products: store
+            products: store,
+            cartCount: cart.length
         });
         
     } catch (err) {
@@ -356,10 +371,17 @@ const DeleteAllStoreProduct = async (req: Request,res: Response,next: NextFuncti
 const SearchStoreProduct = async (req: Request,res: Response,next: NextFunction) => {
     try {
 
+        // get the authenticated user's id
+        let {_id} : any = req.user!;
+        let authenticatedUserId : string = _id;
+
+        // also find the user's cart count
+        let cart = await CartModel.find({userId: authenticatedUserId});
+
         // if search query not found then show all products
         if (!req.query.q) {
             let store = await StoreModel.find({});
-            res.render("search",{products: store,searchText: "",count: store.length});
+            res.render("search",{products: store,searchText: "",count: store.length,cartCount: cart.length});
             next();
             return;
         }
@@ -367,10 +389,9 @@ const SearchStoreProduct = async (req: Request,res: Response,next: NextFunction)
         // get the search params
         let searchText : any = req.query.q;
 
-
         let store = await StoreModel.find({$text: {$search: searchText}});
 
-        res.status(200).render("search",{products: store,searchText: searchText,count: store.length});
+        res.status(200).render("search",{products: store,searchText: searchText,count: store.length,cartCount: cart.length});
         console.log("search results");
         console.log(store);
     } catch(err) {
