@@ -1,0 +1,275 @@
+:root {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: auto;
+}
+
+nav {
+    z-index: 1000;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: 25px 0px;
+    background-color: whitesmoke;
+    border-bottom: 1px solid black;
+}
+
+a {
+    text-decoration: none;
+    color: black
+}
+
+nav #logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: limegreen
+}
+
+nav div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+nav div a {
+    font-size: 20px;
+}
+
+nav div a:hover {
+    color: gray
+}
+
+div#ads {
+    background-color:rgb(178, 244, 178);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 0px;
+    font-size: 16px;
+    color: black;
+    letter-spacing: 5px;
+}
+
+
+h2#paginate {
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 100px;
+}
+
+h2#paginate a {
+    color: gray;
+    font-weight: 400;
+}
+
+div#checkout_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    width: 90%;
+    padding: 15px;
+    border: 2px solid whitesmoke;
+    margin: 20px auto;
+}
+
+div#checkout_container div#shipping_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    border: 1px solid whitesmoke;
+    padding: 10px;
+    width: 60%;
+}
+
+div#shipping_details h2 {
+    font-size: 24px;
+    text-align: left;
+}
+
+div#shipping_details form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 30px;
+}
+
+div#shipping_details form div {
+    width: 97%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div#shipping_details form div a {
+    font-size: 20px;
+    color: royalblue;
+}
+
+div#shipping_details form div button {
+    font-size: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: lightgreen;
+    border-radius: 10px;
+}
+
+div#shipping_details form div button:hover {
+    background-color: limegreen;
+}
+
+div#shipping_details form div input {
+    width: 95%;
+}
+
+
+div#shipping_details form input,textarea {
+    width: 95%;
+    font-size: 18px;
+    color: black;
+    border: 2px solid gray;
+    padding: 10px 5px;
+    border-radius: 5px;
+}
+
+div#shipping_details form textarea {
+    height: 30vh;
+    resize: none;
+}
+
+div#shipping_details form label {
+    width: 100%;
+    font-size: 20px;
+    margin: 0px;
+}
+
+div#checkout_container div#cart_details {
+    width: 40%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px;
+}
+
+div#cart_details h2 {
+    font-size: 26px;
+    color: black;
+}
+
+div#cart_details div#cart_list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+    padding: 10px 0px;
+    border-bottom: 2px solid gray;
+    height: 30vh;
+    overflow-y: scroll;
+}
+
+div#cart_list div#cart_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+    width: 90%;
+}
+
+div#cart_item img {
+    width: 50px;
+    height: 50px;
+}
+
+div#cart_item p {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+div#cart_item p strong {
+    font-size: 18px;
+}
+
+div#cart_item p span {
+    font-size: 16px;
+}
+
+div#cart_details div#cart_subtotal {
+    width: 100%;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 2px solid gray;
+    padding: 20px 0px;
+    gap: 30px
+}
+
+div#cart_subtotal div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+div#cart_subtotal div p {
+    font-size: 20px;
+    margin: 0;
+    color: gray;
+}
+div#cart_subtotal div h4 {
+    font-size: 22px;
+    margin: 0;
+    color: gray;
+}
+
+div#cart_details div#cart_total {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div#cart_total p {
+    font-size: 20px;
+    color: black;
+}
+
+div#cart_total h4 {
+    font-size: 28px;
+}
+

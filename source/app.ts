@@ -15,6 +15,7 @@ import adminRoutes from "./routes/admin.route";
 import cartRoutes from "./routes/cart.route";
 import searchRoute from "./routes/search.route";
 import settingsRoute from "./routes/settings.route";
+import checkoutRoute from "./routes/checkout.route";
 
 dotenv.config();
 
@@ -56,5 +57,6 @@ app.use("/admin",passport.authenticate("jwt",{session: false,failureRedirect: "/
 app.use("/cart",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),cartRoutes);
 app.use("/search",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),searchRoute);
 app.use("/settings",passport.authenticate('jwt',{session: false,failureRedirect: "/login"}),settingsRoute);
+app.use("/checkout",passport.authenticate("jwt",{session: false,failureRedirect: "/login"}),checkoutRoute);
 
 export default app;
