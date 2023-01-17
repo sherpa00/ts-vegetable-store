@@ -3,7 +3,7 @@ import { Request,Response,NextFunction } from "express";
 import { genSaltSync,hashSync } from "bcrypt";
 import UserModel from "../models/user.model";
 import { validationResult } from "express-validator/src/validation-result";
-import { constants } from "buffer";
+
 
 // ________________________________ SIGNUP CONTROLLERS _________________________
 const Signup = async (req: Request,res: Response,next: NextFunction) => {
@@ -29,6 +29,7 @@ const Signup = async (req: Request,res: Response,next: NextFunction) => {
 
         let hashedPassword = hashSync(req.body.password,salt); // hash the password from req.body with salt generted above;
 
+        
         let newUserModel = new UserModel({
             username: req.body.username,
             email: req.body.email,

@@ -34,7 +34,7 @@
             <h2>
                 Shipping Address
             </h2>
-            <form>
+            <form method="post" action="/checkout">
                 <input type="text" value="Nepal" id="country" name="country" required disabled placeholder="Country/Nation"/>
 
                 <div>
@@ -55,7 +55,7 @@
                 <label>
                     Special Note about delivery:
                     <br></br>
-                    <textarea placeholder="some info about my delivery.." required></textarea>
+                    <textarea name="delivery_note" placeholder="some info about my delivery.." required></textarea>
                 </label>
 
                 <div>
