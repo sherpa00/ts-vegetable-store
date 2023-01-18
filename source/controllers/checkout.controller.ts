@@ -1,10 +1,12 @@
 
 import { Request,Response,NextFunction } from "express";
 import CartModel from "../models/cart.model";
+import OrderModel from "../models/orders.model";
+import StoreModel from "../models/store.model";
 
 
 // delivery details types
-type DeliveryDetails = {
+export type DeliveryDetails = {
     country: string,
     firstname: string,
     lastname: string,
@@ -17,7 +19,7 @@ type DeliveryDetails = {
 };
 
 // bill types
-type Bill = {
+export type Bill = {
     subtotal: number,
     shipping_fee: number,
     total: number
@@ -95,15 +97,29 @@ const CheckOutOrder = async (req: Request,res: Response,next: NextFunction) : Pr
             total: total
         };
 
-        let order = {
+        let orderObject = {
             userId: authenticatedUserId,
             delivery_details: {...deliveryDetails},
-            products: [...orderedProducts],
             bill: bill
         } 
 
-        console.log(order);
-        res.status(200).redirect("/checkout");
+        // create a new order
+        let order = new OrderModel(orderObject);
+
+        let savedOrder = await order.save();
+
+        // after creating the order delete your cart and sync the product's quantity
+        orderedProducts.forEach(async (product) => {
+            // here calculate max_quantity left after ordering the product
+            let maxQuantityLeft : number = product.product.max_quantity - product.product_quantity;
+            await StoreModel.findByIdAndUpdate(product.product._id,{max_quantity: maxQuantityLeft});
+        });
+        // here empty the cart;
+        await CartModel.deleteMany({userId: authenticatedUserId});
+
+        console.log(savedOrder);
+        console.log("Added order");
+        res.status(200).redirect("/store");
         
     } catch (err) {
         console.log(err);
