@@ -1,4 +1,5 @@
 import { Request,Response,NextFunction } from "express";
+import { rmSync } from "fs";
 import OrderModel from "../models/orders.model";
 
 
@@ -22,6 +23,54 @@ const GetUserOrder = async (req: Request,res: Response,next: NextFunction) : Pro
     }
 }
 
+// update order to be accepted
+const AcceptOrder = async (req: Request,res: Response,next: NextFunction) : Promise<void> => {
+    try {
+        // get orderId
+        const orderId : string = req.params.id;
+
+        await OrderModel.findByIdAndUpdate(orderId,{$set: {status: "Accepted and Sent"}});
+
+        console.log("Accepted and sent order");
+        res.status(200).redirect('/admin');
+    } catch (err) {
+        console.log(err);
+        res.redirect('/admin');
+    }
+}
+
+// update order to be received
+const ReceivedOrder = async (req: Request,res: Response,next: NextFunction) : Promise<void> => {
+    try {
+        // get orderId
+        const orderId : string = req.params.id;
+
+        await OrderModel.findByIdAndUpdate(orderId,{$set: {status: "Received"}});
+
+        console.log("Received order");
+        res.status(200).redirect('/admin');
+    } catch (err) {
+        console.log(err);
+        res.redirect('/admin');
+    }
+}
+
+// delete order
+const DeleteOrder = async (req: Request,res: Response,next: NextFunction) : Promise<void> => {
+    try {
+        // get the orderid
+        const orderId : string = req.params.id;
+
+        await OrderModel.findByIdAndDelete(orderId);
+
+        console.log("Deleted Order");
+        res.status(200).redirect("/admin");
+    } catch (err) {
+        console.log(err);
+        res.redirect('admin');
+    }
+}
 
 
-export {GetUserOrder};
+
+export {GetUserOrder,AcceptOrder,DeleteOrder,ReceivedOrder};

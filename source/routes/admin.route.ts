@@ -1,5 +1,7 @@
 import { Router,Request,Response,NextFunction } from "express";
+import { AcceptOrder, DeleteOrder, ReceivedOrder } from "../controllers/orders.controller";
 import isAdmin from "../middlewares/isAdmin.middleware";
+import OrderModel from "../models/orders.model";
 import StoreModel from "../models/store.model";
 
 // _____________________ ADMIN ROUTES _______________________
@@ -15,7 +17,13 @@ router.get("/",isAdmin, async (req: Request,res: Response,next: NextFunction) =>
     // get all store products to pass to admin route render
     let products = await StoreModel.find({});
 
-    res.render("admin",{products: products});
+    // get all orders to pass to admin route render
+    let orders = await OrderModel.find({});
+
+    res.render("admin",{
+        products: products,
+        orders: orders
+    });
 });
 
 // admin store update routes
@@ -39,6 +47,12 @@ router.get("/product/update/:id",isAdmin,async (req: Request,res: Response, next
         console.log("Product not valid");
         res.redirect('/admin');
     }
-})
+});
+
+router.get("/orders/accept/:id",isAdmin,AcceptOrder);
+
+router.get("/orders/received/:id",isAdmin,ReceivedOrder);
+
+router.delete("/orders/delete/:id",isAdmin,DeleteOrder);
 
 export = router;

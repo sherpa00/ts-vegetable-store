@@ -148,6 +148,74 @@
             </button>
         </form>
     <% } %>
+
+    <div id="orders_container">
+        <h2>
+            Your Order List
+        </h2>
+        <% if (locals.orders && locals.orders.length <= 0) { %>
+            <h3>
+                &#128554;
+            </h3>
+            <h4>
+                No Orders are found right now.
+            </h4>
+        <% } else { %>
+            <div id="orders_list">
+                <% orders.forEach(order => { %>
+                    
+                    <div id="order_item">
+                        <p>
+                            <strong>Username</strong>
+                            <span>
+                                <%= order.delivery_details.firstname + " " + order.delivery_details.lastname  %> 
+                            </span>
+                        </p>
+                        <p>
+                            <strong>Location</strong>
+                            <span>
+                                <%= order.delivery_details.street %>, <%= order.delivery_details.city %>
+                            </span>
+                        </p>
+                        <p>
+                            <strong>Phone no.</strong>
+                            <span>
+                                <%= order.delivery_details.phone_number %> 
+                            </span>
+                        </p>
+                        <p>
+                            <strong>Amount</strong>
+                            <span>
+                                Rs. <%= order.bill.total %> 
+                            </span>
+                        </p>
+                        <p>
+                            <strong>Status</strong>
+                            <span>
+                                <%= order.status %> 
+                            </span>
+                        </p>
+                        <form method="get" action="/admin/orders/accept/<%= order._id  %>" class="update_order">
+                            <button type="submit">
+                                Accept Order
+                            </button>
+                        </form>
+                        <form method="get" action="/admin/orders/received/<%= order._id  %>" class="received_order">
+                            <button type="submit">
+                                Received Order
+                            </button>
+                        </form>
+                        <form method="post" action="/admin/orders/delete/<%= order._id  %>?_method=DELETE" class="delete_order">
+                            <button type="submit">
+                                Delete Order
+                            </button>
+                        </form>
+                    </div>
+
+                <% }) %>
+            </div>
+        <% } %> 
+    </div>
     
 </body>
 </html>
