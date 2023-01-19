@@ -25,6 +25,15 @@ export type Bill = {
     total: number
 }
 
+// order product types
+export type OrderProduct = {
+    title: string,
+    quantity: number,
+    price: number,
+    totalsum: number,
+    imgSrc: string,
+}
+
 // _______________________ CHECKOUT CONTORLLER ____________________
 
 const GetCheckout = async (req: Request,res: Response,next: NextFunction) : Promise<void> => {
@@ -76,7 +85,7 @@ const CheckOutOrder = async (req: Request,res: Response,next: NextFunction) : Pr
         // if the product is empty then return to /store to shop products
         if (!orderedProducts) {
             console.log("Cart is empty");
-            res.status(200).redirect("/store");
+            res.status(200).redirect("/orders");
             next();
         }
 
@@ -97,9 +106,23 @@ const CheckOutOrder = async (req: Request,res: Response,next: NextFunction) : Pr
             total: total
         };
 
+        let newOrderdProducts : OrderProduct[] = [];
+        
+        orderedProducts.forEach(orderProd => {
+            newOrderdProducts.push({
+                title: orderProd.product.title,
+                quantity: orderProd.product_quantity,
+                price: orderProd.product.price,
+                totalsum: orderProd.total_sum,
+                imgSrc: orderProd.product.image.path
+            });
+        });
+
         let orderObject = {
             userId: authenticatedUserId,
+            email: authenticatedEmail,
             delivery_details: {...deliveryDetails},
+            products: newOrderdProducts,
             bill: bill
         } 
 
@@ -116,10 +139,10 @@ const CheckOutOrder = async (req: Request,res: Response,next: NextFunction) : Pr
         });
         // here empty the cart;
         await CartModel.deleteMany({userId: authenticatedUserId});
-
+        
         console.log(savedOrder);
-        console.log("Added order");
-        res.status(200).redirect("/store");
+        console.log("added order"); 
+        res.status(200).redirect("/orders");
         
     } catch (err) {
         console.log(err);

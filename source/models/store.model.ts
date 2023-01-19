@@ -7,7 +7,7 @@ interface Store {
     title: string;
     description: string;
     price: number;
-    type: string;
+    Type: string;
     category: mongoose.Types.Array<string>;
     image: {
         path: string,
@@ -36,7 +36,7 @@ const StoreSchema = new mongoose.Schema<Store>({
         type: Number,
         required: true
     },
-    type: {
+    Type: {
         type: String,
         required: true
     },

@@ -11,7 +11,7 @@ type ReqBody = {
     title: string;
     description: string;
     price: number,
-    type: string,
+    Type: string,
     category: string[],
     image: any,
     max_quantity: number
@@ -60,7 +60,7 @@ const CreateStoreProduct = async (req: Request,res: Response,next: NextFunction)
             title: req.body.title,
             description: req.body.description,
             price: Number(req.body.price),
-            type: req.body.type,
+            Type: req.body.Type,
             category: [],
             image: imageFile,// add the the image file oject
             max_quantity: Number(req.body.max_quantity)
@@ -256,7 +256,7 @@ const UpdateProductPrice = async (req: Request,res: Response,next: NextFunction)
 const UpdateProductType = async (req: Request,res: Response,next: NextFunction): Promise<void> => {
     try {
         await StoreModel.findByIdAndUpdate(req.params.id,{
-            type: req.body.type
+            Type: req.body.Type
         });
         console.log("Product type updated");
         res.status(200).redirect("/admin");

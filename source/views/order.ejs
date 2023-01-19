@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/order.css" />
+    <title>Orders</title>
+</head>
+
+<body>
+    <%- include('partials/navbar.ejs')  %>
+
+    <div id="ads">
+        <p>
+            !! Happy New Year !!
+        </p>
+    </div>
+
+    <h2 id="paginate">
+        <a href="/store">
+            / store /
+        </a>
+        <a href="/order">
+            orders
+        </a>
+    </h2>
+
+    <% if (locals.orders && locals.orders.length <= 0) { %>
+    <div id="order_empty">
+        <h2>
+            &#128554;
+        </h2>
+        <h3>
+            You have not ordered anything yet!
+        </h3>
+        <p>
+            Start adding your favourite veggies and fruits now
+        </p>
+        <button>
+            <a href="/store">
+                Go shop and order
+            </a>
+        </button>
+    </div>
+    <% } else { %>
+
+    <div id="order_container">
+        <h2>
+            Your Orders
+        </h2>
+
+        <div id="order_lists">
+
+
+            <% orders.forEach(order => { %>
+                <h3 class="status">
+                    <%= order.status  %> 
+                </h3>
+                <div class="order_cont_list">
+                    <% order.products.forEach(orderProduct => { %>
+
+                    <div id="order_item">
+
+                        <img src="<%= orderProduct.imgSrc %>" alt="product image" />
+
+                        <p>
+                            <strong>Name</strong>
+                            <span>
+                                <%= orderProduct.title  %>
+                            </span>
+                        </p>
+
+                        <p>
+                            <strong>Qty</strong>
+                            <span>
+                                <%= orderProduct.quantity %>
+                            </span>
+                        </p>
+
+                        <p>
+                            <strong>Price</strong>
+                            <span>
+                                <%= orderProduct.price %>
+                            </span>
+                        </p>
+
+                        <p>
+                            <strong>Total Sum</strong>
+                            <span>
+                                <%= orderProduct.totalsum %>
+                            </span>
+                        </p>
+
+                    </div>
+
+                    <% }) %>
+                </div>
+
+                <div id="order_subtotal">
+                    <div>
+                        <p>Subtotal</p>
+                        <h4>
+                            Rs. <%= order.bill.subtotal  %>
+                        </h4>
+                    </div>
+                    <div>
+                        <p>Shipping Fee</p>
+                        <h4>
+                            Rs. <%= order.bill.shipping_fee  %>
+                        </h4>
+                    </div>
+                </div>
+
+                <div id="order_total">
+                    <p>Total</p>
+                    <h4>
+                        Rs. <%= order.bill.total  %>
+                    </h4>
+                </div>
+
+
+            <% }) %>
+        </div>
+
+    </div>
+
+<% } %>
+</body>
+
+</html>
