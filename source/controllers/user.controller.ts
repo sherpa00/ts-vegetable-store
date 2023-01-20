@@ -1,6 +1,7 @@
 import { compare, hash } from "bcrypt";
 import { Request,Response,NextFunction } from "express";
 import CartModel from "../models/cart.model";
+import OrderModel from "../models/orders.model";
 import UserModel from "../models/user.model";
 
 // __________________________ USER CONTROLLERS ____________________
@@ -136,4 +137,26 @@ const DeleteAccount = async (req: Request,res: Response,next: NextFunction) : Pr
     }
 }
 
-export {GetUser,UpdateUsername,UpdateEmail,UpdatePassword,DeleteAccount}
+const DeleteUserByAdmin = async (req: Request,res: Response,next: NextFunction) : Promise<void> => {
+    try {
+        // get the userid from req.params
+        const userId : string = req.params.id;
+
+        // first delete cart of the user
+        await CartModel.deleteMany({userId: userId});
+
+        // secondldy delete orders of the user
+        await OrderModel.deleteMany({userId: userId});
+
+        // then delete user 
+        await UserModel.findByIdAndDelete(userId);
+
+        console.log("User is deleted by admin");
+        res.status(200).redirect("/admin");
+    } catch (err) {
+        console.log(err);
+        res.redirect("/admin");
+    }
+}
+
+export {GetUser,UpdateUsername,UpdateEmail,UpdatePassword,DeleteAccount,DeleteUserByAdmin}

@@ -17,10 +17,16 @@
     </p>
 
     <div id="btn-group1">
-        <a href="#products-section">
+        <a href="#add_product">
+            Add Products
+        </a>
+        <a href="#products-list">
             Products Section
         </a>
-        <a href="#users-section">
+        <a href="#orders_container">
+            Orders Section
+        </a>
+        <a href="#users_container">
             Users Section
         </a>
     </div>
@@ -208,6 +214,57 @@
                         <form method="post" action="/admin/orders/delete/<%= order._id  %>?_method=DELETE" class="delete_order">
                             <button type="submit">
                                 Delete Order
+                            </button>
+                        </form>
+                    </div>
+
+                <% }) %>
+            </div>
+        <% } %> 
+    </div>
+
+    <div id="users_container">
+        <h2>
+            Users List
+        </h2>
+        <% if (locals.users && locals.users.length <= 0) { %>
+            <h3>
+                &#128554;
+            </h3>
+            <h4>
+                No Users are found.
+            </h4>
+        <% } else { %>
+            <div id="users_list">
+                <% users.forEach(user => { %>
+                    
+                    <div id="users_item">
+                        <p>
+                            <strong>Username</strong>
+                            <span>
+                                <%= user.username %> 
+                            </span>
+                        </p>
+                        <p>
+                            <strong>Email</strong>
+                            <span>
+                                <%= user.email %>
+                            </span>
+                        </p>
+                        <p>
+                            <strong>Role</strong>
+                            <span>
+                                <% if (user.isAdmin) { %>
+                                 Admin
+                                <% } else { %>
+                                    User
+                                <% } %> 
+                            </span>
+                        </p>
+                        
+                        <form method="post" action="/admin/users/delete/<%= user._id  %>?_method=DELETE" class="delete_user">
+                            <button type="submit">
+                                Delete User
                             </button>
                         </form>
                     </div>

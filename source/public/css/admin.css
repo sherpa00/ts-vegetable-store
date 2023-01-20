@@ -240,7 +240,7 @@ body {
     background-color: gray;
 }
 
-div#orders_container {
+div#orders_container,div#users_container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -251,21 +251,21 @@ div#orders_container {
     padding: 20px 0px;
 }
 
-div#orders_container h2 {
+div#orders_container h2,div#users_container h2 {
     font-size: 30px;
 }
 
-div#orders_container h3 {
+div#orders_container h3, div#users_container h3 {
     font-size: 24px;
     text-align: center;
 }
 
-div#orders_container h4 {
+div#orders_container h4,div#users_container h4 {
     font-size: 22px;
     text-align: center;
 }
 
-div#orders_container div#orders_list {
+div#orders_container div#orders_list,div#users_container div#users_list {
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -274,7 +274,7 @@ div#orders_container div#orders_list {
     gap: 15px;
 }
 
-div#orders_list div#order_item {
+div#orders_list div#order_item,div#users_list div#users_item {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -286,7 +286,7 @@ div#orders_list div#order_item {
     border-radius: 10px;
 }
 
-div#order_item p {
+div#order_item p,div#users_item p {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -294,15 +294,15 @@ div#order_item p {
     align-items: flex-start;
 }
 
-div#order_item p strong {
+div#order_item p strong,div#users_item p strong {
     font-size: 18px;
 }
 
-div#order_item p span {
+div#order_item p span , div#users_item p span{
     font-size: 17px;
 }
 
-div#order_item form button {
+div#order_item form button, div#users_item form button {
     font-size: 16px;
     background-color: slateblue;
     padding: 10px 10px;
@@ -311,11 +311,11 @@ div#order_item form button {
     color: white;
 }
 
-div#order_item form button:hover {
+div#order_item form button:hover,div#users_item form button:hover {
     color: black;
 }
 
-div#order_item form.delete_order button {
+div#order_item form.delete_order button, div#users_item form.delete_user button {
     background-color: crimson;
 }
 

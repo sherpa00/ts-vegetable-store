@@ -1,8 +1,11 @@
 import { Router,Request,Response,NextFunction } from "express";
 import { AcceptOrder, DeleteOrder, ReceivedOrder } from "../controllers/orders.controller";
+import { DeleteUserByAdmin } from "../controllers/user.controller";
 import isAdmin from "../middlewares/isAdmin.middleware";
 import OrderModel from "../models/orders.model";
 import StoreModel from "../models/store.model";
+import UserModel from "../models/user.model";
+
 
 // _____________________ ADMIN ROUTES _______________________
 const router = Router();
@@ -20,9 +23,13 @@ router.get("/",isAdmin, async (req: Request,res: Response,next: NextFunction) =>
     // get all orders to pass to admin route render
     let orders = await OrderModel.find({});
 
+    // get all usres to pass to admin route render
+    let users = await UserModel.find({});
+
     res.render("admin",{
         products: products,
-        orders: orders
+        orders: orders,
+        users: users
     });
 });
 
@@ -54,5 +61,7 @@ router.get("/orders/accept/:id",isAdmin,AcceptOrder);
 router.get("/orders/received/:id",isAdmin,ReceivedOrder);
 
 router.delete("/orders/delete/:id",isAdmin,DeleteOrder);
+
+router.delete("/users/delete/:id",isAdmin,DeleteUserByAdmin);
 
 export = router;
