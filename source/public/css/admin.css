@@ -323,5 +323,9 @@ div#order_item form.received_order button {
     background-color: limegreen;
 }
 
+a#logout {
+    background-color: royalblue;
+}
+
 
 
